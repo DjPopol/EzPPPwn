@@ -18,9 +18,28 @@ Supported versions are:
 The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to launch Mira or similar homebrew enablers, the stage2.bin payload needs to be adapted.
 # Requirements
 
-    A computer with an Ethernet port
-        USB adapter also works
-    Ethernet cable
-    Python3 and gcc installed
+    - A computer with an Ethernet port  USB adapter also works
+    - Ethernet cable
+    - Python3 and gcc installed
 
 # Usage
+    MainForm :
+    [ Script ]
+    - button "Browse pppwn"    : Browse pppwn.py
+    - button "Browse offsets"  : Browse offsets.py
+    - button "Save Pythons"    : Save Python's scripts (pppwn.py, offsets.py) to Directory with 
+
+    [ Network PC ]             : Select your NetworkInterface (connected to Playstation 4)
+    [ Firmware Playstation   ] : Choose Firmware version
+    [ Stage1 ]
+    - button "Browse" Stage1   : Browse stage1.bin
+    [ Stage2 ]
+    - button "Browse" Stage1   : Browse stage2.bin
+
+    [ Command ]
+    - button "Save Batch"      : Save Batch script (.sh) to filename with "Save Batch" button
+    - button "Save All To"     : Save Python's script and stage's to Directory
+    - button "Execute"         : Execute POC in new window "Console"
+
+    FormConsole :
+    - button "Save Log"        : Save log to file

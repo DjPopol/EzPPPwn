@@ -1,7 +1,7 @@
 ﻿
 namespace Ez_PPPwn
 {
-    partial class FormExecute
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Ez_PPPwn
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormExecute));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             buttonStart = new Button();
             buttonBrowsePPPwn = new Button();
             groupBoxNetworkPC = new GroupBox();

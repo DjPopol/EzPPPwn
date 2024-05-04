@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Ez_PPPwn
 {
-    public partial class FormExecute : Form
+    public partial class FormMain : Form
     {
         private string pppwnPath = string.Empty;
         private string offsetsPath = string.Empty;
@@ -14,7 +14,7 @@ namespace Ez_PPPwn
         private string[] offsettsFirmwareSupport = [];
         private string defaultFirmware = string.Empty;
         private bool comboboxFirmwareChanging = false;
-        public FormExecute()
+        public FormMain()
         {
             InitializeComponent();
         }
