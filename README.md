@@ -27,7 +27,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     [ Script ]
     - button "Browse pppwn"    : Browse pppwn.py
     - button "Browse offsets"  : Browse offsets.py
-    - button "Save Pythons"    : Save Python's scripts (pppwn.py, offsets.py) to Directory with 
+    - button "Save Pythons"    : Save Python's scripts (pppwn.py, offsets.py) to Directory
 
     [ Network PC ]             : Select your NetworkInterface (connected to Playstation 4)
     [ Firmware Playstation   ] : Choose Firmware version
