@@ -18,9 +18,9 @@ Supported versions are:
 The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to launch Mira or similar homebrew enablers, the stage2.bin payload needs to be adapted.
 # Requirements
 
-    - A computer with an Ethernet port  USB adapter also works
-    - Ethernet cable
-    - Python3 and gcc installed
+    - A computer with an Ethernet port  USB adapter also works.
+    - Ethernet cable.
+    - Python3 and gcc installed.
 
 # Usage
     Main :
@@ -40,7 +40,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - button "Browse"          : Browse stage2.bin
 
     [ Command ]
-    - button "Save Batch"      : Save Execute Batch script (.sh) to filename.
+    - button "Save Batch"      : Save Execute Batch script (.sh) as
     - button "Save All To"     : Save Python's script and stage's to Directory as
     - button "Execute"         : Execute POC in new window "Console"
 
