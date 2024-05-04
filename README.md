@@ -22,8 +22,6 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     A computer with an Ethernet port
         USB adapter also works
     Ethernet cable
-    Linux
-        You can use VirtualBox to create a Linux VM with Bridged Adapter as network adapter to use the ethernet port in the VM.
     Python3 and gcc installed
 
 # Usage
