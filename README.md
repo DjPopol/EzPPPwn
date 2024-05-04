@@ -32,9 +32,9 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     [ Network PC ]             : Select your NetworkInterface (connected to Playstation 4)
     [ Firmware Playstation   ] : Choose Firmware version
     [ Stage1 ]
-    - button "Browse" Stage1   : Browse stage1.bin
+    - button "Browse"          : Browse stage1.bin
     [ Stage2 ]
-    - button "Browse" Stage1   : Browse stage2.bin
+    - button "Browse"          : Browse stage2.bin
 
     [ Command ]
     - button "Save Batch"      : Save Batch script (.sh) to filename
