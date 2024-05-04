@@ -45,4 +45,4 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - button "Execute"         : Execute POC in new window "Console"
 
     Console :
-    - button "Save Log"        : Save log to
+    - button "Save Log"        : Save log as
