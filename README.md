@@ -17,7 +17,7 @@ Supported versions are:
     more can be added (PRs are welcome)
 
 The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to launch Mira or similar homebrew enablers, the stage2.bin payload needs to be adapted.
-Requirements
+# Requirements
 
     A computer with an Ethernet port
         USB adapter also works
@@ -26,4 +26,4 @@ Requirements
         You can use VirtualBox to create a Linux VM with Bridged Adapter as network adapter to use the ethernet port in the VM.
     Python3 and gcc installed
 
-Usage
+# Usage
