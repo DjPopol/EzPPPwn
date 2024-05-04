@@ -31,7 +31,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
 
     [ Network PC ]             : Select your NetworkInterface (connected to Playstation 4)
     
-    [ Firmware Playstation   ] : Choose Firmware version
+    [ Firmware Playstation ]   : Choose Firmware version
     
     [ Stage1 ]
     - button "Browse"          : Browse stage1.bin
