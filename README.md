@@ -48,7 +48,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     Console :
     - button "Save Log"        : Save log as
 
-    On your PS4:
+On your PS4:
 
 - Go to `Settings` and then `Network`
 - Select `Set Up Internet connection` and choose `Use a LAN Cable`
