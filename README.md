@@ -37,7 +37,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - button "Browse" Stage1   : Browse stage2.bin
 
     [ Command ]
-    - button "Save Batch"      : Save Batch script (.sh) to filename with "Save Batch" button
+    - button "Save Batch"      : Save Batch script (.sh) to filename
     - button "Save All To"     : Save Python's script and stage's to Directory
     - button "Execute"         : Execute POC in new window "Console"
 
