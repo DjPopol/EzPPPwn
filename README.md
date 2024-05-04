@@ -23,7 +23,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - Python3 and gcc installed
 
 # Usage
-    MainForm :
+    FormMain :
     [ Script ]
     - button "Browse pppwn"    : Browse pppwn.py
     - button "Browse offsets"  : Browse offsets.py
