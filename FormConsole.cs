@@ -63,8 +63,17 @@ namespace Ez_PPPwn
 
                     th = new(async () =>
                     {
-                        await Tools.SavePythonScripts(Path.Combine(Tools.PathTmp, "pppwn.py"), _infos.PathToScript, _infos.PathToOffsets, _infos.Firmware);
-                        string pppwnPathOut = Path.Combine(Tools.PathTmp, "pppwn.py");
+                        string pppwnPathOut = infos.PathToScript;
+                        if (Path.GetDirectoryName(infos.PathToScript) != Path.GetDirectoryName(infos.PathToOffsets))
+                        {
+                            if (Directory.Exists(Tools.PathTmp))
+                            {
+                                Directory.Delete(Tools.PathTmp, true);
+                            }
+                            Directory.CreateDirectory(Tools.PathTmp);
+                            await Tools.SavePythonScripts(Path.Combine(Tools.PathTmp, Path.GetFileName(infos.PathToScript)), infos.PathToScript, infos.PathToOffsets, infos.Firmware);
+                            pppwnPathOut = Path.Combine(Tools.PathTmp, Path.GetFileName(infos.PathToScript));
+                        }
 
                         Process process = new()
                         {
@@ -82,16 +91,7 @@ namespace Ez_PPPwn
                         };
                         try
                         {
-                            if (Path.GetDirectoryName(infos.PathToScript) != Path.GetDirectoryName(infos.PathToOffsets))
-                            {
-                                if (Directory.Exists(Tools.PathTmp))
-                                {
-                                    Directory.Delete(Tools.PathTmp, true);
-                                }
-                                Directory.CreateDirectory(Tools.PathTmp);
-                                await Tools.SavePythonScripts(Path.Combine(Tools.PathTmp, Path.GetFileName(infos.PathToScript)), infos.PathToScript, infos.PathToOffsets, infos.Firmware);
-                                pppwnPathOut = Path.Combine(Tools.PathTmp, Path.GetFileName(infos.PathToScript));
-                            }
+                           
                             process.OutputDataReceived += Cmd_DataReceived;
                             process.ErrorDataReceived += Cmd_DataReceived;
                             process.Start();
