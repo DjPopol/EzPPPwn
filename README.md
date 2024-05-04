@@ -23,7 +23,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - Python3 and gcc installed
 
 # Usage
-    FormMain :
+    Main :
     [ Script ]
     - button "Browse pppwn"    : Browse pppwn.py
     - button "Browse offsets"  : Browse offsets.py
@@ -41,5 +41,5 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - button "Save All To"     : Save Python's script and stage's to Directory
     - button "Execute"         : Execute POC in new window "Console"
 
-    FormConsole :
+    Console :
     - button "Save Log"        : Save log to file
