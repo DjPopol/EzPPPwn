@@ -2,6 +2,7 @@
 
 ![image](https://github.com/DjPopol/Ez-PPPwn/assets/168917709/de9ed0fe-4bf9-4160-ae04-d093540cd141)
 
+![image](https://github.com/DjPopol/Ez-PPPwn/assets/168917709/51f5117c-d0c5-4d36-870a-2730315906e0)
 
 PPPwn is a kernel remote code execution exploit for PlayStation 4 up to FW 11.00. This is a proof-of-concept exploit for CVE-2006-4304 that was reported responsibly to PlayStation.
 
