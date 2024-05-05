@@ -1,4 +1,7 @@
-﻿namespace Ez_PPPwn
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
+
+namespace Ez_PPPwn
 {
     public static class Tools
     {
@@ -17,6 +20,29 @@
                 Console.WriteLine($"Error Delete PathTmp\n{ex.Message}");   
             }
             await Task.Delay(100);
+        }
+        public static Config? GetConfig(string configPath)
+        {
+            try
+            {
+                if (File.Exists(configPath))
+                {
+                    string jsonFile = File.ReadAllText(configPath);
+                    var result = JsonConvert.DeserializeObject<Config>(jsonFile);
+                    if (result != null && result is Config c)
+                    {
+                        //Check Config
+
+                        return new(c.Infos);
+                    }
+                }
+                return null;
+            }
+            catch (JsonException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
         }
         public static string GetStringBetween(string text, string start, string end = "")
         {
@@ -204,7 +230,29 @@
                 return false;
             }
         }
-
+        public static bool SaveConfig(Config config, string configPath)
+        {
+            if (config == null)
+            {
+                return false;
+            }
+            try
+            {
+                JsonSerializer serializer = new()
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                };
+                using StreamWriter sw = new(configPath);
+                using JsonWriter writer = new JsonTextWriter(sw);
+                serializer.Serialize(writer, config);
+                return true;
+            }
+            catch (JsonException jsonEx)
+            {
+                Debug.WriteLine(jsonEx.Message);
+                return false;
+            }
+        }
         public async static Task<bool> SaveShell(string pathFilename, string pppwnPath, string networkInterface, string firmware, string stage1Path, string stage2Path, bool showResult = false)
         {
             try

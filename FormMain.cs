@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Ez_PPPwn
 {
@@ -14,6 +15,7 @@ namespace Ez_PPPwn
         private string[] offsettsFirmwareSupport = [];
         private string defaultFirmware = string.Empty;
         private bool comboboxFirmwareChanging = false;
+
         public FormMain()
         {
             InitializeComponent();
@@ -22,6 +24,7 @@ namespace Ez_PPPwn
         {
             Init();
         }
+        #region CONTROLS
         #region BUTTONS
         private void ButtonBrowseOffsets_Click(object sender, EventArgs e)
         {
@@ -43,86 +46,13 @@ namespace Ez_PPPwn
         {
             RefreshNetwork();
         }
-        private async void ButtonSaveShell_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new()
-            {
-                Title = "Save Batch As",
-                Filter = "Shell (*.sh)|*.sh|Batch (*.bat)|*.bat",
-                FilterIndex = 1
-            };
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                await Tools.SaveShell(saveFileDialog.FileName, pppwnPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path, true);
-            }
-        }
-        private async void ButtonSavePythons_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new()
-            {
-                Title = "Save Python As",
-                Filter = "Python (*.py)|*.py",
-                FilterIndex = 1
-            };
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string? directoryName = Path.GetDirectoryName(saveFileDialog.FileName);
-                if(directoryName != null)
-                {
-                    await Tools.SavePythonScripts(saveFileDialog.FileName, pppwnPath, offsetsPath, $"{comboBoxFirmware.SelectedItem}", true);
-                    textBoxScript.Text = saveFileDialog.FileName;
-                    textBoxOffsets.Text = Path.Combine(directoryName, "offsets.py");
-                }
-                
-            }
-        }
-        private async void ButtonSaveAllScripts_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folderBrowserDialog = new();
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                string pathOut = folderBrowserDialog.SelectedPath;
-                await Tools.SaveAllScripts(pathOut, pppwnPath, offsetsPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path, true);
-                pppwnPath = Path.Combine(pathOut, Path.GetFileName(pppwnPath));
-                textBoxScript.Text =pppwnPath;
-                offsetsPath = Path.Combine(pathOut, Path.GetFileName(offsetsPath));
-                textBoxOffsets.Text = offsetsPath;
-                stage1Path = Path.Combine(pathOut, Path.GetFileName(stage1Path));
-                textBoxStage1.Text = stage1Path;
-                stage2Path = Path.Combine(pathOut, Path.GetFileName(stage2Path));
-                textBoxStage2.Text = stage2Path;
-            }
-        }
         private void ButtonShowNetwork_Click(object sender, EventArgs e)
         {
-            Process.Start(@"Rundll32.exe", " shell32.dll,Control_RunDLL ncpa.cpl");
+            ShowNetwork();
         }
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            FormConsole formConsole = new(new ExecuteInfos(pppwnPath, offsetsPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path));
-            formConsole.FormClosing += new FormClosingEventHandler((object? sender2, FormClosingEventArgs e2) =>
-            {
-                if(formConsole.th != null && formConsole.th.IsAlive)
-                {
-                    try
-                    {
-                        if(formConsole.th.ThreadState != System.Threading.ThreadState.Stopped)
-                        {
-                            formConsole.th.Interrupt();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error Thread Interrupt :\n{ex.Message}");
-                    }
-                }
-                Tools.CleanPathTmp();
-                Enabled = true;
-                Show();
-            });
-            Enabled = false;
-            Hide();
-            formConsole.Show();
+            Execute();
         }
         #endregion
         #region COMBOBOX
@@ -132,15 +62,34 @@ namespace Ez_PPPwn
             {
                 MessageBox.Show("Select Ethernet Controller", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            CheckForm();
+            RefreshForm();
         }
         private void ComboBoxFirmware_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!comboboxFirmwareChanging)
             {
-                CheckForm();
+                RefreshForm();
             }
         }
+        #endregion
+        #region TOOLSTRIP
+        private async void AllToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await SaveAllTo();
+        }
+        private async void BatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await SaveBatch();
+        }
+        private void ConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveConfig();
+        }
+        private async void PythonsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await SavePythons();
+        }
+        #endregion
         #endregion
         #region FUNCTIONS
         private void BrowsePayload(int stage)
@@ -165,7 +114,7 @@ namespace Ez_PPPwn
                     textBoxStage2.Text = opendialog.SafeFileName;
                 }
             }
-            CheckForm();
+            RefreshForm();
         }
         private void BrowsePPPwn()
         {
@@ -193,7 +142,7 @@ namespace Ez_PPPwn
                         MessageBox.Show($"{textBoxScript.Text} not supported.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    CheckForm();
+                    RefreshForm();
                     CheckFirmwares();
                 }
             }
@@ -215,20 +164,87 @@ namespace Ez_PPPwn
                 {
                     string filename = openFileDialog.FileName;
                     offsettsFirmwareSupport = Tools.GetFirmwareFromOffsets(filename);
-                    if(offsettsFirmwareSupport == null || offsettsFirmwareSupport.Length <= 0)
+                    if (offsettsFirmwareSupport == null || offsettsFirmwareSupport.Length <= 0)
                     {
-                        MessageBox.Show($"{Path.GetFileName(filename)} not supported.", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show($"{Path.GetFileName(filename)} not supported.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     offsetsPath = filename;
                     textBoxOffsets.Text = filename;
-                    CheckForm();
+                    RefreshForm();
                     CheckFirmwares();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CheckConfig(string pathConfig)
+        {
+            if(File.Exists(pathConfig))
+            {
+                Config? config = Tools.GetConfig(pathConfig);
+                if(config != null)
+                {
+                    if(File.Exists(config.Infos.PathToScript))
+                    {
+                        FirmwaresScriptInfos? firmwaresScriptInfos = Tools.GetFirmwareFromScript(config.Infos.PathToScript);
+
+                        if (firmwaresScriptInfos != null && firmwaresScriptInfos.Firmwares.Length >= 0)
+                        {
+                            pppwnPath = config.Infos.PathToScript;
+                            ppwnFirmwareSupport = firmwaresScriptInfos.Firmwares;
+                            defaultFirmware = firmwaresScriptInfos.DefaultFirmware;
+                        }
+                        else
+                        {
+                            pppwnPath = string.Empty;
+                            ppwnFirmwareSupport = [];
+                        }
+
+                        if (File.Exists(config.Infos.PathToOffsets))
+                        {
+                            offsettsFirmwareSupport = Tools.GetFirmwareFromOffsets(config.Infos.PathToOffsets);
+                            if (offsettsFirmwareSupport != null && offsettsFirmwareSupport.Length >= 0)
+                            {
+                                offsetsPath = config.Infos.PathToOffsets;
+                            }
+                            else
+                            {
+                                offsettsFirmwareSupport = [];
+                                offsetsPath = string.Empty;
+                            }
+                        }
+
+                        CheckFirmwares();
+
+                        if (config.Infos.NetworkInterface != null && config.Infos.NetworkInterface != string.Empty && comboBoxEthernet.Items.Contains(config.Infos.NetworkInterface))
+                        {
+                            comboBoxEthernet.SelectedItem = config.Infos.NetworkInterface;
+                        }
+
+                        if (config.Infos.Firmware != null && config.Infos.Firmware != string.Empty && comboBoxFirmware.Items.Contains(config.Infos.Firmware))
+                        {
+                            comboBoxFirmware.SelectedItem = config.Infos.Firmware;
+                        }
+
+                        if (File.Exists(config.Infos.Stage1Path))
+                        {
+                            stage1Path = config.Infos.Stage1Path;
+                            textBoxStage1.Text = stage1Path;
+                        }
+
+                        if (File.Exists(config.Infos.Stage2Path))
+                        {
+                            stage2Path = config.Infos.Stage2Path;
+                            textBoxStage2.Text = config.Infos.Stage2Path;
+                        }
+
+                        RefreshForm();
+                    }
+
+                }
             }
         }
         private void CheckFirmwares()
@@ -251,48 +267,58 @@ namespace Ez_PPPwn
                 }
                 comboboxFirmwareChanging = false;
             }
+            else
+            {
+                pppwnPath = string.Empty;
+                offsetsPath = string.Empty;
+            }
         }
-        private void CheckForm()
+        private static int CheckForm(ExecuteInfos infos)
         {
-            if (pppwnPath == null || !File.Exists(pppwnPath))
+            if (infos.PathToScript == null || !File.Exists(infos.PathToScript))
             {
-                Height = 135;
-                buttonSaveAllScripts.Enabled = false;
-                buttonSaveShell.Enabled = false;
-                buttonSavePythons.Enabled = false;
-                buttonStart.Enabled = false;
-                buttonBrowseOffsets.Enabled = false;
+                return -3;
             }
-            else if (offsetsPath == null || !File.Exists(offsetsPath))
+            else if (infos.PathToOffsets == null || !File.Exists(infos.PathToOffsets))
             {
-                Height = 135;
-                buttonSaveAllScripts.Enabled = false;
-                buttonSaveShell.Enabled = false;
-                buttonSavePythons.Enabled = false;
-                buttonStart.Enabled = false;
-                buttonBrowseOffsets.Enabled = true;
+                return -2;
             }
-            else if (comboBoxEthernet.SelectedItem == null || comboBoxFirmware.SelectedItem == null
-                    || stage1Path == null || !File.Exists(stage1Path) || stage2Path == null || !File.Exists(stage2Path))
+            else if (infos.Firmware == null || infos.Firmware == string.Empty
+                    || infos.Stage1Path == null || !File.Exists(infos.Stage1Path) || infos.Stage2Path == null || !File.Exists(infos.Stage2Path))
             {
-                Height = 350;
-                buttonSaveAllScripts.Enabled = false;
-                buttonSaveShell.Enabled = false;
-                buttonSavePythons.Enabled = true;
-                buttonStart.Enabled = false;
-                buttonBrowseOffsets.Enabled = true;
-                
+                return -1;
             }
             else
             {
-                Height = 350;
-                buttonSaveAllScripts.Enabled = true;
-                buttonSaveShell.Enabled = true;
-                buttonSavePythons.Enabled = true;
-                buttonStart.Enabled = true;
-                buttonBrowseOffsets.Enabled = true;
-                
+                return 0;
             }
+        }
+        private void Execute()
+        {
+            FormConsole formConsole = new(new ExecuteInfos(pppwnPath, offsetsPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path));
+            formConsole.FormClosing += new FormClosingEventHandler((object? sender2, FormClosingEventArgs e2) =>
+            {
+                if (formConsole.th != null && formConsole.th.IsAlive)
+                {
+                    try
+                    {
+                        if (formConsole.th.ThreadState != System.Threading.ThreadState.Stopped)
+                        {
+                            formConsole.th.Interrupt();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error Thread Interrupt :\n{ex.Message}");
+                    }
+                }
+                Tools.CleanPathTmp();
+                Enabled = true;
+                Show();
+            });
+            Enabled = false;
+            Hide();
+            formConsole.Show();
         }
         private void Init()
         {
@@ -300,31 +326,174 @@ namespace Ez_PPPwn
             comboBoxEthernet.Items.Clear();
             comboBoxFirmware.SelectedIndex = 0;
             textBoxStage1.Text = string.Empty;
-            RefreshNetwork();
+            RefreshNetwork(true);
+            CheckConfig(Path.Combine(Environment.CurrentDirectory, "config.json"));
         }
-        private void RefreshNetwork()
+        private void RefreshForm()
+        {
+            switch(CheckForm(new(pppwnPath, offsetsPath, $"{ comboBoxEthernet.SelectedItem }", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path)))
+            {
+                case -3:
+                    Height = 160;
+                    allToToolStripMenuItem.Visible = false;
+                    batchToolStripMenuItem.Visible = false;
+                    buttonBrowseOffsets.Enabled = false;
+                    configToolStripMenuItem.Visible = false;
+                    pythonsToolStripMenuItem.Visible = false;
+                    saveToolStripMenuItem.Visible = false;
+                    break;
+                case -2:
+                    Height = 160;
+                    allToToolStripMenuItem.Visible = false;
+                    batchToolStripMenuItem.Visible = false;
+                    buttonBrowseOffsets.Enabled = true;
+                    buttonStart.Visible = false;
+                    configToolStripMenuItem.Visible = false;
+                    pythonsToolStripMenuItem.Visible = false;
+                    saveToolStripMenuItem.Visible = false;
+                    textBoxScript.Text = pppwnPath;
+                    break;
+                case -1:
+                    Height = 375;
+                    allToToolStripMenuItem.Visible = false;
+                    batchToolStripMenuItem.Visible = false;
+                    buttonBrowseOffsets.Enabled = true;
+                    configToolStripMenuItem.Visible = false;
+                    pythonsToolStripMenuItem.Visible = true;
+                    saveToolStripMenuItem.Visible = true;
+
+                    textBoxScript.Text = pppwnPath;
+                    textBoxOffsets.Text = offsetsPath;
+                    break;
+                case 0:
+                    Height = 375;
+                    allToToolStripMenuItem.Visible = true;
+                    batchToolStripMenuItem.Visible = true;
+                    buttonStart.Visible = true;
+                    buttonBrowseOffsets.Enabled = true;
+                    configToolStripMenuItem.Visible = true;
+                    pythonsToolStripMenuItem.Visible = true;
+                    saveToolStripMenuItem.Visible = true;
+
+                    textBoxScript.Text = pppwnPath;
+                    textBoxOffsets.Text = offsetsPath;
+                    break;
+            }
+        }
+        private void RefreshNetwork(bool init = false)
         {
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
             if (nics == null || nics.Length < 1)
             {
                 MessageBox.Show("No network interfaces found.", "Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                CheckForm();
-                return;
             }
-            comboBoxEthernet.Items.Clear();
-            foreach (NetworkInterface adapter in nics)
+            else
             {
-                if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                comboBoxEthernet.Items.Clear();
+                foreach (NetworkInterface adapter in nics)
                 {
-                    comboBoxEthernet.Items.Add(adapter.Description);
+                    if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                    {
+                        comboBoxEthernet.Items.Add(adapter.Description);
+                    }
                 }
             }
-            CheckForm();
+            if(!init)
+            {
+                RefreshForm();
+            }
         }
-
+        private async Task SaveAllTo()
+        {
+            FolderBrowserDialog folderBrowserDialog = new();
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                string pathOut = folderBrowserDialog.SelectedPath;
+                if( await Tools.SaveAllScripts(pathOut, pppwnPath, offsetsPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path, true))
+                {
+                    pppwnPath = Path.Combine(pathOut, Path.GetFileName(pppwnPath));
+                    textBoxScript.Text = pppwnPath;
+                    offsetsPath = Path.Combine(pathOut, Path.GetFileName(offsetsPath));
+                    textBoxOffsets.Text = offsetsPath;
+                    stage1Path = Path.Combine(pathOut, Path.GetFileName(stage1Path));
+                    textBoxStage1.Text = stage1Path;
+                    stage2Path = Path.Combine(pathOut, Path.GetFileName(stage2Path));
+                    textBoxStage2.Text = stage2Path;
+                    MessageBox.Show($"Save Successful to {pathOut} !", "Save All To", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"Error Save to {pathOut}", "Save All To", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+            return;
+        }
+        private async Task SaveBatch()
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Title = "Save Batch As",
+                Filter = "Shell (*.sh)|*.sh|Batch (*.bat)|*.bat",
+                FilterIndex = 1
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+               if( await Tools.SaveShell(saveFileDialog.FileName, pppwnPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path, true))
+                {
+                    MessageBox.Show($"Save {saveFileDialog.FileName} Successful !", "Save Batch As", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show($"Error Save {saveFileDialog.FileName}", "Save Batch As", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void SaveConfig()
+        {
+            if(Tools.SaveConfig(new(new(pppwnPath, offsetsPath, $"{comboBoxEthernet.SelectedItem}", $"{comboBoxFirmware.SelectedItem}", stage1Path, stage2Path)), Path.Combine(Environment.CurrentDirectory,"config.json")))
+            {
+                MessageBox.Show($"Save config.json Successful !", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Error Save config.json", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private async Task SavePythons()
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Title = "Save Python As",
+                Filter = "Python (*.py)|*.py",
+                FilterIndex = 1
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string? directoryName = Path.GetDirectoryName(saveFileDialog.FileName);
+                if (directoryName != null)
+                {
+                    if(await Tools.SavePythonScripts(saveFileDialog.FileName, pppwnPath, offsetsPath, $"{comboBoxFirmware.SelectedItem}", true))
+                    {
+                        MessageBox.Show($"Save {saveFileDialog.FileName} and {Path.Combine(directoryName, "offsets.py")} Successful !", "Save Pythons As", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        textBoxScript.Text = saveFileDialog.FileName;
+                        textBoxOffsets.Text = Path.Combine(directoryName, "offsets.py");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Error Save {saveFileDialog.FileName}", "Save Pythons As", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private static void ShowNetwork()
+        {
+            Process.Start(@"Rundll32.exe", " shell32.dll,Control_RunDLL ncpa.cpl");
+        }
         [GeneratedRegex("[^0-9]")]
         private static partial Regex RegexSortNum();
         #endregion
+        
     }
 }
 

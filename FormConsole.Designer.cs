@@ -69,7 +69,7 @@
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "FormConsole";
-            Text = "Console  EZ PPPwn-v1.00 by DjPopol ";
+            Text = "Console  EZ PPPwn-Bin-Loader  v1.00 by DjPopol ";
             Load += FormConsole_Load;
             ResumeLayout(false);
             PerformLayout();

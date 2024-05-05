@@ -45,15 +45,18 @@ namespace Ez_PPPwn
             textBoxOffsets = new TextBox();
             pictureBox1 = new PictureBox();
             textBoxScript = new TextBox();
-            buttonSaveAllScripts = new Button();
             pictureBoxPS4 = new PictureBox();
             groupBoxNetworkPS = new GroupBox();
             comboBoxFirmware = new ComboBox();
             groupBoxStage2 = new GroupBox();
             textBoxStage2 = new TextBox();
             buttonBrowseStage2 = new Button();
-            buttonSaveShell = new Button();
-            buttonSavePythons = new Button();
+            menuStrip1 = new MenuStrip();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            configToolStripMenuItem = new ToolStripMenuItem();
+            pythonsToolStripMenuItem = new ToolStripMenuItem();
+            batchToolStripMenuItem = new ToolStripMenuItem();
+            allToToolStripMenuItem = new ToolStripMenuItem();
             groupBoxNetworkPC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPC).BeginInit();
             groupBoxStage1.SuspendLayout();
@@ -62,12 +65,12 @@ namespace Ez_PPPwn
             ((System.ComponentModel.ISupportInitialize)pictureBoxPS4).BeginInit();
             groupBoxNetworkPS.SuspendLayout();
             groupBoxStage2.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // buttonStart
             // 
-            buttonStart.Enabled = false;
-            buttonStart.Location = new Point(442, 283);
+            buttonStart.Location = new Point(444, 306);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(139, 23);
             buttonStart.TabIndex = 15;
@@ -93,7 +96,7 @@ namespace Ez_PPPwn
             groupBoxNetworkPC.Controls.Add(pictureBoxPC);
             groupBoxNetworkPC.Controls.Add(comboBoxEthernet);
             groupBoxNetworkPC.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBoxNetworkPC.Location = new Point(10, 96);
+            groupBoxNetworkPC.Location = new Point(12, 119);
             groupBoxNetworkPC.Name = "groupBoxNetworkPC";
             groupBoxNetworkPC.Size = new Size(577, 79);
             groupBoxNetworkPC.TabIndex = 0;
@@ -166,7 +169,7 @@ namespace Ez_PPPwn
             groupBoxStage1.Controls.Add(textBoxStage1);
             groupBoxStage1.Controls.Add(buttonBrowseStage1);
             groupBoxStage1.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBoxStage1.Location = new Point(217, 181);
+            groupBoxStage1.Location = new Point(219, 204);
             groupBoxStage1.Name = "groupBoxStage1";
             groupBoxStage1.Size = new Size(370, 45);
             groupBoxStage1.TabIndex = 0;
@@ -182,7 +185,7 @@ namespace Ez_PPPwn
             groupBoxScript.Controls.Add(textBoxScript);
             groupBoxScript.Controls.Add(buttonBrowsePPPwn);
             groupBoxScript.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBoxScript.Location = new Point(10, 4);
+            groupBoxScript.Location = new Point(12, 27);
             groupBoxScript.Name = "groupBoxScript";
             groupBoxScript.Size = new Size(577, 86);
             groupBoxScript.TabIndex = 0;
@@ -231,17 +234,6 @@ namespace Ez_PPPwn
             textBoxScript.TabIndex = 0;
             textBoxScript.TabStop = false;
             // 
-            // buttonSaveAllScripts
-            // 
-            buttonSaveAllScripts.Enabled = false;
-            buttonSaveAllScripts.Location = new Point(293, 283);
-            buttonSaveAllScripts.Name = "buttonSaveAllScripts";
-            buttonSaveAllScripts.Size = new Size(137, 23);
-            buttonSaveAllScripts.TabIndex = 14;
-            buttonSaveAllScripts.Text = "Save  All To";
-            buttonSaveAllScripts.UseVisualStyleBackColor = true;
-            buttonSaveAllScripts.Click += ButtonSaveAllScripts_Click;
-            // 
             // pictureBoxPS4
             // 
             pictureBoxPS4.Image = Properties.Resources.playstation4pro;
@@ -257,7 +249,7 @@ namespace Ez_PPPwn
             groupBoxNetworkPS.Controls.Add(comboBoxFirmware);
             groupBoxNetworkPS.Controls.Add(pictureBoxPS4);
             groupBoxNetworkPS.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBoxNetworkPS.Location = new Point(10, 181);
+            groupBoxNetworkPS.Location = new Point(12, 204);
             groupBoxNetworkPS.Name = "groupBoxNetworkPS";
             groupBoxNetworkPS.Size = new Size(201, 96);
             groupBoxNetworkPS.TabIndex = 0;
@@ -280,7 +272,7 @@ namespace Ez_PPPwn
             groupBoxStage2.Controls.Add(textBoxStage2);
             groupBoxStage2.Controls.Add(buttonBrowseStage2);
             groupBoxStage2.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBoxStage2.Location = new Point(217, 232);
+            groupBoxStage2.Location = new Point(219, 255);
             groupBoxStage2.Name = "groupBoxStage2";
             groupBoxStage2.Size = new Size(370, 45);
             groupBoxStage2.TabIndex = 14;
@@ -290,7 +282,7 @@ namespace Ez_PPPwn
             // textBoxStage2
             // 
             textBoxStage2.Enabled = false;
-            textBoxStage2.Location = new Point(6, 17);
+            textBoxStage2.Location = new Point(6, 19);
             textBoxStage2.Name = "textBoxStage2";
             textBoxStage2.ReadOnly = true;
             textBoxStage2.Size = new Size(207, 22);
@@ -307,48 +299,75 @@ namespace Ez_PPPwn
             buttonBrowseStage2.UseVisualStyleBackColor = true;
             buttonBrowseStage2.Click += ButtonBrowseStage2_Click;
             // 
-            // buttonSaveShell
+            // menuStrip1
             // 
-            buttonSaveShell.Enabled = false;
-            buttonSaveShell.Location = new Point(150, 283);
-            buttonSaveShell.Name = "buttonSaveShell";
-            buttonSaveShell.Size = new Size(137, 23);
-            buttonSaveShell.TabIndex = 16;
-            buttonSaveShell.Text = "Save  Batch";
-            buttonSaveShell.UseVisualStyleBackColor = true;
-            buttonSaveShell.Click += ButtonSaveShell_Click;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { saveToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(594, 24);
+            menuStrip1.TabIndex = 19;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // buttonSavePythons
+            // saveToolStripMenuItem
             // 
-            buttonSavePythons.Location = new Point(10, 283);
-            buttonSavePythons.Name = "buttonSavePythons";
-            buttonSavePythons.Size = new Size(134, 23);
-            buttonSavePythons.TabIndex = 17;
-            buttonSavePythons.Text = "Save  Pythons";
-            buttonSavePythons.UseVisualStyleBackColor = true;
-            buttonSavePythons.Click += ButtonSavePythons_Click;
+            saveToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { configToolStripMenuItem, pythonsToolStripMenuItem, batchToolStripMenuItem, allToToolStripMenuItem });
+            saveToolStripMenuItem.Image = Properties.Resources.save;
+            saveToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(59, 20);
+            saveToolStripMenuItem.Text = "Save";
             // 
-            // FormExecute
+            // configToolStripMenuItem
+            // 
+            configToolStripMenuItem.Image = Properties.Resources.config;
+            configToolStripMenuItem.Name = "configToolStripMenuItem";
+            configToolStripMenuItem.Size = new Size(180, 22);
+            configToolStripMenuItem.Text = "Config";
+            configToolStripMenuItem.Click += ConfigToolStripMenuItem_Click;
+            // 
+            // pythonsToolStripMenuItem
+            // 
+            pythonsToolStripMenuItem.Image = Properties.Resources.python;
+            pythonsToolStripMenuItem.Name = "pythonsToolStripMenuItem";
+            pythonsToolStripMenuItem.Size = new Size(180, 22);
+            pythonsToolStripMenuItem.Text = "Pythons";
+            pythonsToolStripMenuItem.Click += PythonsToolStripMenuItem_Click;
+            // 
+            // batchToolStripMenuItem
+            // 
+            batchToolStripMenuItem.Image = Properties.Resources.batch;
+            batchToolStripMenuItem.Name = "batchToolStripMenuItem";
+            batchToolStripMenuItem.Size = new Size(180, 22);
+            batchToolStripMenuItem.Text = "Batch";
+            batchToolStripMenuItem.Click += BatchToolStripMenuItem_Click;
+            // 
+            // allToToolStripMenuItem
+            // 
+            allToToolStripMenuItem.Name = "allToToolStripMenuItem";
+            allToToolStripMenuItem.Size = new Size(180, 22);
+            allToToolStripMenuItem.Text = "All To";
+            allToToolStripMenuItem.Click += AllToToolStripMenuItem_Click;
+            // 
+            // FormMain
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuBar;
-            ClientSize = new Size(594, 311);
-            Controls.Add(buttonSavePythons);
-            Controls.Add(buttonSaveShell);
+            ClientSize = new Size(594, 336);
             Controls.Add(groupBoxStage2);
             Controls.Add(groupBoxNetworkPS);
             Controls.Add(groupBoxScript);
-            Controls.Add(buttonSaveAllScripts);
             Controls.Add(buttonStart);
             Controls.Add(groupBoxStage1);
             Controls.Add(groupBoxNetworkPC);
+            Controls.Add(menuStrip1);
             Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
-            Name = "FormExecute";
-            Text = "EZ PPPwn-v1.00 by DjPopol";
+            Name = "FormMain";
+            Text = "EZ PPPwn-Bin-Loader v1.00 by DjPopol";
             Load += Form1_Load;
             groupBoxNetworkPC.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxPC).EndInit();
@@ -361,7 +380,10 @@ namespace Ez_PPPwn
             groupBoxNetworkPS.ResumeLayout(false);
             groupBoxStage2.ResumeLayout(false);
             groupBoxStage2.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -377,7 +399,6 @@ namespace Ez_PPPwn
         private System.Windows.Forms.GroupBox groupBoxStage1;
         private System.Windows.Forms.GroupBox groupBoxScript;
         private System.Windows.Forms.TextBox textBoxScript;
-        private System.Windows.Forms.Button buttonSaveAllScripts;
         private PictureBox pictureBoxPS4;
         private GroupBox groupBoxNetworkPS;
         private ComboBox comboBoxFirmware;
@@ -387,8 +408,12 @@ namespace Ez_PPPwn
         private Button buttonBrowseStage2;
         private TextBox textBoxOffsets;
         private Button buttonBrowseOffsets;
-        private Button buttonSaveShell;
-        private Button buttonSavePythons;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem pythonsToolStripMenuItem;
+        private ToolStripMenuItem batchToolStripMenuItem;
+        private ToolStripMenuItem allToToolStripMenuItem;
+        private ToolStripMenuItem configToolStripMenuItem;
     }
 }
 
