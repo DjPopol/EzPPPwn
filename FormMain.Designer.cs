@@ -146,7 +146,6 @@ namespace Ez_PPPwn
             // 
             // textBoxStage1
             // 
-            textBoxStage1.Enabled = false;
             textBoxStage1.Location = new Point(6, 17);
             textBoxStage1.Name = "textBoxStage1";
             textBoxStage1.ReadOnly = true;
@@ -205,7 +204,6 @@ namespace Ez_PPPwn
             // textBoxOffsets
             // 
             textBoxOffsets.BackColor = SystemColors.Control;
-            textBoxOffsets.Enabled = false;
             textBoxOffsets.Location = new Point(211, 53);
             textBoxOffsets.Name = "textBoxOffsets";
             textBoxOffsets.ReadOnly = true;
@@ -226,7 +224,6 @@ namespace Ez_PPPwn
             // textBoxScript
             // 
             textBoxScript.BackColor = SystemColors.Control;
-            textBoxScript.Enabled = false;
             textBoxScript.Location = new Point(211, 21);
             textBoxScript.Name = "textBoxScript";
             textBoxScript.ReadOnly = true;
@@ -281,7 +278,6 @@ namespace Ez_PPPwn
             // 
             // textBoxStage2
             // 
-            textBoxStage2.Enabled = false;
             textBoxStage2.Location = new Point(6, 19);
             textBoxStage2.Name = "textBoxStage2";
             textBoxStage2.ReadOnly = true;
@@ -321,7 +317,7 @@ namespace Ez_PPPwn
             // 
             configToolStripMenuItem.Image = Properties.Resources.config;
             configToolStripMenuItem.Name = "configToolStripMenuItem";
-            configToolStripMenuItem.Size = new Size(180, 22);
+            configToolStripMenuItem.Size = new Size(117, 22);
             configToolStripMenuItem.Text = "Config";
             configToolStripMenuItem.Click += ConfigToolStripMenuItem_Click;
             // 
@@ -329,7 +325,7 @@ namespace Ez_PPPwn
             // 
             pythonsToolStripMenuItem.Image = Properties.Resources.python;
             pythonsToolStripMenuItem.Name = "pythonsToolStripMenuItem";
-            pythonsToolStripMenuItem.Size = new Size(180, 22);
+            pythonsToolStripMenuItem.Size = new Size(117, 22);
             pythonsToolStripMenuItem.Text = "Pythons";
             pythonsToolStripMenuItem.Click += PythonsToolStripMenuItem_Click;
             // 
@@ -337,14 +333,14 @@ namespace Ez_PPPwn
             // 
             batchToolStripMenuItem.Image = Properties.Resources.batch;
             batchToolStripMenuItem.Name = "batchToolStripMenuItem";
-            batchToolStripMenuItem.Size = new Size(180, 22);
+            batchToolStripMenuItem.Size = new Size(117, 22);
             batchToolStripMenuItem.Text = "Batch";
             batchToolStripMenuItem.Click += BatchToolStripMenuItem_Click;
             // 
             // allToToolStripMenuItem
             // 
             allToToolStripMenuItem.Name = "allToToolStripMenuItem";
-            allToToolStripMenuItem.Size = new Size(180, 22);
+            allToToolStripMenuItem.Size = new Size(117, 22);
             allToToolStripMenuItem.Text = "All To";
             allToToolStripMenuItem.Click += AllToToolStripMenuItem_Click;
             // 
