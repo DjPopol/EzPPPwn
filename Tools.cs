@@ -64,7 +64,33 @@ namespace Ez_PPPwn
                 if (line.Contains("class OffsetsFirmware_"))
                 {
                     string firmware = GetStringBetween(line, "class OffsetsFirmware_", ":");
-                    if (firmware == "903_904" || firmware == "903" || firmware == "904")
+                    if (firmware == "800_801_803" || firmware == "800_801" || firmware == "800_803" || firmware == "801_803" || firmware == "800" || firmware == "801" || firmware == "803")
+                    {
+                        if (!firmwares.Contains("800"))
+                        {
+                            firmwares.Add("800");
+                        }
+                        if (!firmwares.Contains("801"))
+                        {
+                            firmwares.Add("801");
+                        }
+                        if (!firmwares.Contains("803"))
+                        {
+                            firmwares.Add("803");
+                        }
+                    }
+                    else if (firmware == "850_852" || firmware == "850" || firmware == "852")
+                    {
+                        if (!firmwares.Contains("850"))
+                        {
+                            firmwares.Add("850");
+                        }
+                        if (!firmwares.Contains("852"))
+                        {
+                            firmwares.Add("852");
+                        }
+                    }
+                    else if (firmware == "903_904" || firmware == "903" || firmware == "904")
                     {
                         if(!firmwares.Contains("903"))
                         {
@@ -75,11 +101,15 @@ namespace Ez_PPPwn
                             firmwares.Add("904");
                         }
                     }
-                    else if (firmware == "950_960" || firmware == "950" || firmware == "960")
+                    else if (firmware == "950_951_960" || firmware == "950_951" || firmware == "950_960" || firmware == "951_960" || firmware == "950" || firmware == "951" || firmware == "960")
                     {
                         if (!firmwares.Contains("950"))
                         {
                             firmwares.Add("950");
+                        }
+                        if (!firmwares.Contains("951"))
+                        {
+                            firmwares.Add("951");
                         }
                         if (!firmwares.Contains("960"))
                         {
@@ -304,8 +334,10 @@ namespace Ez_PPPwn
                     }
                     string script = string.Empty;
                     bool condFind = false;
+                    bool f800_801_803Found = false;
+                    bool f850_852Found = false;
                     bool f903_904found = false;
-                    bool f950_960found = false;
+                    bool f950_951_960found = false;
                     bool f1000_1001Found = false;
                     bool f1050_1070_1071Found = false;
                     if (firmwaresToAdd.Count > 0 && firmwaresScriptInfos != null)
@@ -334,6 +366,36 @@ namespace Ez_PPPwn
                                 condFind = true;
                                 script += line + "\n";
                             }
+                            else if (!f800_801_803Found && (line.Contains("elif args.fw in ('800', '801', '803')")
+                                || line.Contains("elif args.fw in ('800', '801')") || line.Contains("elif args.fw in ('800', '803')") || line.Contains("elif args.fw in ('801', '803')")
+                                || line.Contains("elif args.fw == '800'") || line.Contains("elif args.fw == '801'") || line.Contains("elif args.fw == '803'")))
+                            {
+                                f800_801_803Found = true;
+                                if (!line.Contains("elif args.fw in ('800', '801', '803')"))
+                                {
+                                    script += $"    elif args.fw in ('800', '801', '803'):\n";
+                                    script += $"        offs = OffsetsFirmware_800_801_803()\n";
+                                }
+                                else
+                                {
+                                    script += line + "\n";
+                                }
+
+                            }
+                            else if (!f850_852Found && (line.Contains("elif args.fw in ('850', '852')") || line.Contains("elif args.fw == '850'") || line.Contains("elif args.fw == '852'")))
+                            {
+                                f850_852Found = true;
+                                if (!line.Contains("elif args.fw in ('850', '852')"))
+                                {
+                                    script += $"    elif args.fw in ('850', '852'):\n";
+                                    script += $"        offs = OffsetsFirmware_850_852()\n";
+                                }
+                                else
+                                {
+                                    script += line + "\n";
+                                }
+
+                            }
                             else if (!f903_904found && (line.Contains("elif args.fw in ('903', '904')") || line.Contains("elif args.fw == '903'") || line.Contains("elif args.fw == '904'")))
                             {
                                 f903_904found = true;
@@ -348,13 +410,15 @@ namespace Ez_PPPwn
                                 }
 
                             }
-                            else if (!f950_960found && (line.Contains("elif args.fw in ('950', '960')") || line.Contains("elif args.fw == '950'") || line.Contains("elif args.fw == '960'")))
+                            else if (!f950_951_960found && (line.Contains("elif args.fw in ('950', '951', '960')") ||
+                                line.Contains("elif args.fw in ('950', '951')") || line.Contains("elif args.fw in ('950', '960')") || line.Contains("elif args.fw in ('951', '960')") ||
+                                line.Contains("elif args.fw == '950'") || line.Contains("elif args.fw == '951'") || line.Contains("elif args.fw == '960'")))
                             {
-                                f950_960found = true;
-                                if (!line.Contains("elif args.fw in ('950', '960')"))
+                                f950_951_960found = true;
+                                if (!line.Contains("elif args.fw in ('950', '951', '960' )"))
                                 {
-                                    script += $"    elif args.fw in ('950', '960'):\n";
-                                    script += $"        offs = OffsetsFirmware_950_960()\n";
+                                    script += $"    elif args.fw in ('950', '951', '960' ):\n";
+                                    script += $"        offs = OffsetsFirmware_950_951_960()\n";
                                 }
                                 else
                                 {
@@ -397,10 +461,24 @@ namespace Ez_PPPwn
                                 condFind = false;
                                 foreach (string f in firmwaresToAdd)
                                 {
-                                    if(f != "903" && f != "904" && f != "950" && f != "960" && f != "1000" && f != "1001" && f != "1050" && f != "1070" && f != "1071") 
+                                    if(f != "800" && f != "801" && f != "803" && f != "850" && f != "852"
+                                        && f != "903" && f != "904" && f != "950" && f != "951" && f != "960" 
+                                        && f != "1000" && f != "1001" && f != "1050" && f != "1070" && f != "1071") 
                                     {
                                         script += $"    elif args.fw == '{f}':\n";
                                         script += $"        offs = OffsetsFirmware_{f}()\n";
+                                    }
+                                    else if (!f800_801_803Found && (f == "800" || f == "801" || f == "803"))
+                                    {
+                                        f903_904found = true;
+                                        script += $"    elif args.fw in ('800', '801', '803'):\n";
+                                        script += $"        offs = OffsetsFirmware_800_801_803()\n";
+                                    }
+                                    else if (!f850_852Found && (f == "850" || f == "852"))
+                                    {
+                                        f903_904found = true;
+                                        script += $"    elif args.fw in ('850', '852'):\n";
+                                        script += $"        offs = OffsetsFirmware_850_852()\n";
                                     }
                                     else if (!f903_904found && (f == "903" || f == "904"))
                                     {
@@ -408,11 +486,11 @@ namespace Ez_PPPwn
                                         script += $"    elif args.fw in ('903', '904'):\n";
                                         script += $"        offs = OffsetsFirmware_903_904()\n";
                                     }
-                                    else if (!f950_960found && (f == "950" || f == "960"))
+                                    else if (!f950_951_960found && (f == "950" || f == "951" || f == "960"))
                                     {
-                                        f950_960found = true;
-                                        script += $"    elif args.fw in ('950', '960'):\n";
-                                        script += $"        offs = OffsetsFirmware_950_960()\n";
+                                        f950_951_960found = true;
+                                        script += $"    elif args.fw in ('950', '951', '960'):\n";
+                                        script += $"        offs = OffsetsFirmware_950_951_960()\n";
                                     }
                                     else if(!f1000_1001Found && (f == "1000" || f == "1001"))
                                     {
@@ -446,8 +524,10 @@ namespace Ez_PPPwn
                     if (directoryName != null)
                     {
                         script = string.Empty;
+                        f800_801_803Found = false;
+                        f850_852Found = false;
                         f903_904found = false;
-                        f950_960found = false;
+                        f950_951_960found = false;
                         f1000_1001Found = false;
                         f1050_1070_1071Found = false;
                         foreach (string line in File.ReadLines($"{offsetsPath}"))
@@ -455,6 +535,28 @@ namespace Ez_PPPwn
                             if (line.Contains("class OffsetsFirmware_"))
                             {
                                 string f = GetStringBetween(line, "class OffsetsFirmware_", ":");
+                                if (f == "800_801_803" && !f800_801_803Found)
+                                {
+                                    f800_801_803Found = true;
+                                    script += line + "\n";
+                                }
+                                else if ((f == "800" || f == "801" || f == "803") && !f800_801_803Found)
+                                {
+                                    f800_801_803Found = true;
+                                    script += ReplaceStringBetween(line, "800_801_803", "class OffsetsFirmware_", ":") + "\n";
+                                }
+
+                                if (f == "850_852" && !f850_852Found)
+                                {
+                                    f850_852Found = true;
+                                    script += line + "\n";
+                                }
+                                else if ((f == "850" || f == "850") && !f850_852Found)
+                                {
+                                    f850_852Found = true;
+                                    script += ReplaceStringBetween(line, "850_852", "class OffsetsFirmware_", ":") + "\n";
+                                }
+
                                 if (f == "903_904" && !f903_904found)
                                 {
                                     f903_904found = true;
@@ -470,22 +572,18 @@ namespace Ez_PPPwn
                                     f903_904found = true;
                                     script += ReplaceStringBetween(line, "903_904", "class OffsetsFirmware_", ":") + "\n";
                                 }
-                                if (f == "950_960" && !f950_960found)
+                                if (f == "950_951_960" && !f950_951_960found)
                                 {
-                                    f950_960found = true;
+                                    f950_951_960found = true;
                                     script += line + "\n";
                                 }
-                                else if (f == "950" && !f950_960found)
+                                else if ((f == "950" || f == "951" || f == "960") && !f950_951_960found)
                                 {
-                                    f950_960found = true;
-                                    script += ReplaceStringBetween(line, "950_960", "class OffsetsFirmware_", ":") + "\n";
+                                    f950_951_960found = true;
+                                    script += ReplaceStringBetween(line, "950_951_960", "class OffsetsFirmware_", ":") + "\n";
                                 }
-                                else if (f == "960" && !f950_960found)
-                                {
-                                    f950_960found = true;
-                                    script += ReplaceStringBetween(line, "950_960", "class OffsetsFirmware_", ":") + "\n";
-                                }
-                                else if (f == "1000_1001" && !f1000_1001Found)
+
+                                if (f == "1000_1001" && !f1000_1001Found)
                                 {
                                     f1000_1001Found = true;
                                     script += line;
