@@ -23,7 +23,8 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
 
     - A computer with an Ethernet port  USB adapter also works.
     - Ethernet cable.
-    - Python3.
+    - Python3 + scapy.
+    - Npcap
 
 # Usage
     Main :
