@@ -267,11 +267,11 @@ namespace Ez_PPPwn
                 }
                 comboboxFirmwareChanging = false;
             }
-            else
-            {
-                pppwnPath = string.Empty;
-                offsetsPath = string.Empty;
-            }
+            //else
+            //{
+            //    pppwnPath = string.Empty;
+            //    offsetsPath = string.Empty;
+            //}
         }
         private static int CheckForm(ExecuteInfos infos)
         {
