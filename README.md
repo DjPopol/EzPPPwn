@@ -32,7 +32,7 @@ The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to l
     - button "Browse pppwn"    : Browse pppwn.py
     - button "Browse offsets"  : Browse offsets.py
     - button "Save Pythons"    : Save Python's scripts (pppwn.py, offsets.py) to Directory as
-                                 pppwn.py and offsets.py must be on the same directory.
+                                 ( pppwn.py and offsets.py must be on the same directory ).
 
     [ Network PC ]             : Select your NetworkInterface (connected to Playstation 4)
     
