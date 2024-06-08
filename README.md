@@ -1,4 +1,4 @@
-# EzPPPwn v1.10 by DjPopol 
+# EzPPPwn v1.10 by DjPopol with PPPwn C++ 
 # PlayStation 4
 
 PPPwn is a kernel remote code execution exploit for PlayStation 4 up to FW 11.00. This is a proof-of-concept exploit for CVE-2006-4304 that was reported responsibly to PlayStation.
@@ -17,23 +17,32 @@ Supported versions are:
     more can be added (PRs are welcome)
 
 # Requirements
-
     - A computer with an Ethernet port  USB adapter also works.
     - Ethernet cable.
-    - .Net 8.0
+    - .Net 8.0.
     - Npcap.
 
 # FormConfig (Config EzPPPwn + options PPPwn) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d1cd35af-b19d-40cd-804a-7fef2ddb57ff)
+- Remove Browse stage1.bin (Embedded resource now).
+- Add options of PPPwn C++
+- Restyle Form
 
-# FormPPPwn :
+# FormPPPwn (Exploit):
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/25fec83d-5980-48b4-a8ce-25d0400d4327)
+- Add Show/Hide Console.
+- Add Update PPPwn C++.
+- Add Cancel button.
 
-# If you don't have requirements it could help you to install it:
+# If you don't have requirements it could help you to install it (Npcap, PPPwn C++, stage1.bin (Embedded resource)):
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d9963422-012b-47cd-8765-2663bd0c5568)
+If you don't accept installation, Application will close.
 
 # FormRequired (Install requirements) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/871661dd-8b52-429d-ac46-70ac623f3d0d)
+- Add Cancel button
+- If you canceld installation, Application will close.
+
 
 # Usage
 On your PS4:
