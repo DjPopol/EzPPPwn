@@ -1,5 +1,5 @@
 # EzPPPwn v1.10 by DjPopol 
-# PlayStation 4 PPPoE RCE
+# PlayStation 4
 
 PPPwn is a kernel remote code execution exploit for PlayStation 4 up to FW 11.00. This is a proof-of-concept exploit for CVE-2006-4304 that was reported responsibly to PlayStation.
 
@@ -20,6 +20,7 @@ Supported versions are:
 
     - A computer with an Ethernet port  USB adapter also works.
     - Ethernet cable.
+    - .Net 8.0
     - Npcap.
 
 # Usage
