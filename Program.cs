@@ -1,4 +1,6 @@
-namespace Ez_PPPwn
+using EzPPPwn.Helpers;
+
+namespace EzPPPwn
 {
     internal static class Program
     {
@@ -8,9 +10,8 @@ namespace Ez_PPPwn
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            Tools.MyConfig.LoadConfig();
             Application.Run(new FormMain());
         }
     }
