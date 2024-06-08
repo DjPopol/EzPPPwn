@@ -23,6 +23,18 @@ Supported versions are:
     - .Net 8.0
     - Npcap.
 
+# FormConfig (Config EzPPPwn + options PPPwn) :
+![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d1cd35af-b19d-40cd-804a-7fef2ddb57ff)
+
+# FormPPPwn :
+![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/25fec83d-5980-48b4-a8ce-25d0400d4327)
+
+# If you don't have requirements it could help you to install it:
+![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d9963422-012b-47cd-8765-2663bd0c5568)
+
+# FormRequired (Install requirements) :
+![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/871661dd-8b52-429d-ac46-70ac623f3d0d)
+
 # Usage
 On your PS4:
 - Go to `Settings` and then `Network`
