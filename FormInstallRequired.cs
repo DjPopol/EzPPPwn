@@ -99,7 +99,7 @@ namespace EzPPPwn
                     {
                         MessageBox.Show("Install successfull.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    //Close();
+                    Close();
                 }
             }));
         }
