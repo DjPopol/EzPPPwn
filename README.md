@@ -1,4 +1,5 @@
-# Ez PPPwn PlayStation 4 PPPoE RCE bin loader
+# EzPPPwn v1.10 by DjPopol 
+# PlayStation 4 PPPoE RCE
 
 ![image](https://github.com/DjPopol/Ez-PPPwn/assets/168917709/de9ed0fe-4bf9-4160-ae04-d093540cd141)
 
@@ -7,8 +8,8 @@
 PPPwn is a kernel remote code execution exploit for PlayStation 4 up to FW 11.00. This is a proof-of-concept exploit for CVE-2006-4304 that was reported responsibly to PlayStation.
 
 Supported versions are:
-
-    FW 8.00/ 8.01 / 8.03
+    FW 7.00 / 7.01 / 7.02 / 7.50 / 7.55 
+    FW 8.00 / 8.01 / 8.03
     FW 8.50 / 8.52
     FW 9.00
     FW 9.03 / 9.04
@@ -18,43 +19,14 @@ Supported versions are:
     FW 11.00
     more can be added (PRs are welcome)
 
-The exploit only prints PPPwned on your PS4 as a proof-of-concept. In order to launch Mira or similar homebrew enablers, the stage2.bin payload needs to be adapted.
 # Requirements
 
     - A computer with an Ethernet port  USB adapter also works.
     - Ethernet cable.
-    - Python3 + pip + scapy.
-    - Npcap
+    - Npcap.
 
 # Usage
-    Main :
-    [ Script ]
-    - button "Browse pppwn"    : Browse pppwn.py
-    - button "Browse offsets"  : Browse offsets.py
-    - button "Save Pythons"    : Save Python's scripts (pppwn.py, offsets.py) to Directory as
-                                 ( pppwn.py and offsets.py must be on the same directory ).
-
-    [ Network PC ]             : Select your NetworkInterface (connected to Playstation 4)
-    
-    [ Firmware Playstation ]   : Choose Firmware version
-    
-    [ Stage1 ]
-    - button "Browse"          : Browse stage1.bin
-    
-    [ Stage2 ]
-    - button "Browse"          : Browse stage2.bin
-
-    [ Command ]
-    - button "Save Batch"      : Save Execute Batch script (.sh) as
-    - button "Save All To"     : Save Python's script and stage's to Directory as
-    - button "Execute"         : Execute POC in new window "Console"
-    - button "Save Config"     : Save Config and it load at start up.
-    
-    Console :
-    - button "Save Log"        : Save log as
-
 On your PS4:
-
 - Go to `Settings` and then `Network`
 - Select `Set Up Internet connection` and choose `Use a LAN Cable`
 - Choose `Custom` setup and choose `PPPoE` for `IP Address Settings`
@@ -63,7 +35,7 @@ On your PS4:
 - Choose `Do Not Use` for `Proxy Server`
 - Click `Test Internet Connection` to communicate with your computer
 
-If the exploit fails or the PS4 crashes, you can skip the internet setup and simply click on `Test Internet Connection`. If the `pppwn.py` script is stuck waiting for a request/response, abort it and run it again on your computer, and then click on `Test Internet Connection` on your PS4.
+If the exploit fails or the PS4 crashes, you can skip the internet setup and simply click on `Test Internet Connection`. If the `pppwn.exe` is stuck waiting for a request/response, cancel it and run it again on your computer, and then click on `Test Internet Connection` on your PS4.
 
 If the exploit works, you should see an output similar to below, and you should see `Cannot connect to network.` followed by `PPPwned` printed on your PS4.
 
