@@ -178,6 +178,8 @@ namespace EzPPPwn
         {
             buttonCancel.Visible = locked;
             buttonStart.Visible = !locked;
+            toolStripMenuItemConfig.Enabled = !locked;
+            updateToolStripMenuItem.Enabled = !locked;
         }
         private void OpenConfig()
         {
