@@ -17,7 +17,6 @@ namespace EzPPPwn
         {
             InitializeComponent();
         }
-
         #region EVENTS
         private async void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -178,6 +177,8 @@ namespace EzPPPwn
         {
             buttonCancel.Visible = locked;
             buttonStart.Visible = !locked;
+            toolStripMenuItemConfig.Enabled = !locked;
+            updateToolStripMenuItem.Enabled = !locked;
         }
         private void OpenConfig()
         {
