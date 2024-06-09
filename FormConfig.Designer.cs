@@ -352,7 +352,7 @@ namespace EzPPPwn
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "FormConfig";
-            Text = "EZ PPPwn v1.10 by DjPopol";
+            Text = "Ez PPPwn v1.10 by DjPopol";
             Shown += FormConfig_Shown;
             groupBoxNetworkInterface.ResumeLayout(false);
             groupBoxPPPwnOptions.ResumeLayout(false);
