@@ -16,7 +16,7 @@
 # Requirements
     - A computer with an Ethernet port  USB adapter also works.
     - Ethernet cable.
-    - .Net8.0.
+    - .Net 8.0.
     - Npcap.
 
 # FormConfig (Config EzPPPwn + options PPPwn) :
