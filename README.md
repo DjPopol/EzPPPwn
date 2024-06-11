@@ -19,7 +19,7 @@
     - .Net 8.0.
     - Npcap.
 
-# FormConfig (Config EzPPPwn + options PPPwn) :
+# FormConfig (Config PPPwn) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d1cd35af-b19d-40cd-804a-7fef2ddb57ff)
 - Remove Browse stage1.bin (Embedded resource now).
 - Add options of PPPwn C++.
