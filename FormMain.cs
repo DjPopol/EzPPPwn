@@ -269,7 +269,7 @@ namespace EzPPPwn
                 if (progress.Status == PPPWN_PROGESS_STATUS.COMPLETED || progress.Status == PPPWN_PROGESS_STATUS.CANCELED || progress.Status == PPPWN_PROGESS_STATUS.ERROR || progress.Status == PPPWN_PROGESS_STATUS.FAILED)
                 {
 
-                    if (progress.Status == PPPWN_PROGESS_STATUS.FAILED && Tools.MyConfig.PPPwnConfig.UseAutoRetry)
+                    if (progress.Status == PPPWN_PROGESS_STATUS.FAILED && Tools.MyConfig.PPPwnOptions.UseAutoRetry)
                     {
 
                     }
