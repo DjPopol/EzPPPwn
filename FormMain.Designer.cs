@@ -236,5 +236,6 @@ namespace EzPPPwn
         private ToolStripMenuItem updateToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
         private Label labelFw;
+        private ToolStripMenuItem toolStripMenuItemGithub;
     }
 }
