@@ -41,9 +41,9 @@ namespace EzPPPwn
             showConsoleToolStripMenuItem = new ToolStripMenuItem();
             updateToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItemGithub = new ToolStripMenuItem();
             labelStatus = new Label();
             labelFw = new Label();
-            toolStripMenuItemGithub = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -162,6 +162,16 @@ namespace EzPPPwn
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(12, 20);
             // 
+            // toolStripMenuItemGithub
+            // 
+            toolStripMenuItemGithub.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            toolStripMenuItemGithub.ForeColor = Color.DodgerBlue;
+            toolStripMenuItemGithub.Name = "toolStripMenuItemGithub";
+            toolStripMenuItemGithub.Size = new Size(59, 20);
+            toolStripMenuItemGithub.Text = "GitHub";
+            toolStripMenuItemGithub.TextImageRelation = TextImageRelation.Overlay;
+            toolStripMenuItemGithub.Click += ToolStripMenuItemGithub_Click;
+            // 
             // labelStatus
             // 
             labelStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -182,16 +192,6 @@ namespace EzPPPwn
             labelFw.TabIndex = 9;
             labelFw.Text = "Firmware :";
             labelFw.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // toolStripMenuItemGithub
-            // 
-            toolStripMenuItemGithub.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            toolStripMenuItemGithub.ForeColor = Color.DodgerBlue;
-            toolStripMenuItemGithub.Name = "toolStripMenuItemGithub";
-            toolStripMenuItemGithub.Size = new Size(105, 20);
-            toolStripMenuItemGithub.Text = "DjPopol GitHub";
-            toolStripMenuItemGithub.TextImageRelation = TextImageRelation.Overlay;
-            toolStripMenuItemGithub.Click += ToolStripMenuItemGithub_Click;
             // 
             // FormMain
             // 
