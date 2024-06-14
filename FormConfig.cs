@@ -11,6 +11,7 @@ namespace EzPPPwn
         public FormConfig()
         {
             InitializeComponent();
+            Text = $"Ez PPPwn v{Tools.GetVersionStr()}";
         }
         private void FormConfig_Shown(object sender, EventArgs e)
         {
@@ -135,15 +136,15 @@ namespace EzPPPwn
                 {
                     result = false;
                 }
-                checkBoxAutoRetry.Checked = Tools.MyConfig.PPPwnConfig.UseAutoRetry;
-                checkBoxGroomDelay.Checked = Tools.MyConfig.PPPwnConfig.UseGroomDelay;
-                numericUpDownGroomDelay.Value = Tools.MyConfig.PPPwnConfig.GroomDelay;
-                checkBoxNoWaitPadi.Checked = Tools.MyConfig.PPPwnConfig.UseNoWaitPADI;
-                checkBoxReelSleep.Checked = Tools.MyConfig.PPPwnConfig.UseRealSleep;
-                checkBoxTimeOut.Checked = Tools.MyConfig.PPPwnConfig.UseTimeOut;
-                numericUpDownTimeOut.Value = Tools.MyConfig.PPPwnConfig.TimeOut;
-                checkBoxWaitAfterPin.Checked = Tools.MyConfig.PPPwnConfig.UseWaitAfterPIN;
-                numericUpDownWaitAfterPin.Value = Tools.MyConfig.PPPwnConfig.WaitAfterPIN;
+                checkBoxAutoRetry.Checked = Tools.MyConfig.PPPwnOptions.UseAutoRetry;
+                checkBoxGroomDelay.Checked = Tools.MyConfig.PPPwnOptions.UseGroomDelay;
+                numericUpDownGroomDelay.Value = Tools.MyConfig.PPPwnOptions.GroomDelay;
+                checkBoxNoWaitPadi.Checked = Tools.MyConfig.PPPwnOptions.UseNoWaitPADI;
+                checkBoxReelSleep.Checked = Tools.MyConfig.PPPwnOptions.UseRealSleep;
+                checkBoxTimeOut.Checked = Tools.MyConfig.PPPwnOptions.UseTimeOut;
+                numericUpDownTimeOut.Value = Tools.MyConfig.PPPwnOptions.TimeOut;
+                checkBoxWaitAfterPin.Checked = Tools.MyConfig.PPPwnOptions.UseWaitAfterPIN;
+                numericUpDownWaitAfterPin.Value = Tools.MyConfig.PPPwnOptions.WaitAfterPIN;
             }
             return result;
         }
@@ -212,7 +213,7 @@ namespace EzPPPwn
             {
                 Tools.MyConfig.Firmware = f;
             }
-            Tools.MyConfig.PPPwnConfig = new(checkBoxAutoRetry.Checked,
+            Tools.MyConfig.PPPwnOptions = new(checkBoxAutoRetry.Checked,
                                          checkBoxGroomDelay.Checked,
                                          (int)numericUpDownGroomDelay.Value,
                                          checkBoxNoWaitPadi.Checked,
@@ -222,9 +223,9 @@ namespace EzPPPwn
                                          checkBoxWaitAfterPin.Checked,
                                          (int)numericUpDownWaitAfterPin.Value);
 
-            Tools.MyConfig.SetConfig(comboBoxEthernet.SelectedItem != null ? (NetworkInterface)comboBoxEthernet.SelectedItem : null,
+            Tools.MyConfig.Set(comboBoxEthernet.SelectedItem != null ? (NetworkInterface)comboBoxEthernet.SelectedItem : null,
                 Tools.MyConfig.Firmware, textBoxStage2.Text,
-                Tools.MyConfig.PPPwnConfig);
+                Tools.MyConfig.PPPwnOptions);
             bool result = Tools.MyConfig.Save();
 
             if (!result && showMsg)
