@@ -105,6 +105,21 @@ namespace EzPPPwn
             labelTimer.Text = $"{minutes}:{seconds}";
         }
         private void ToolStripMenuItemGithub_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo psi = new() 
+                {
+                    FileName = "https://github.com/DjPopol/EzPPPwn",
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening page: " + ex.Message);
+            }
+        }
         private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateCpp();
