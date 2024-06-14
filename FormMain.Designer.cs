@@ -182,6 +182,16 @@ namespace EzPPPwn
             labelFw.Text = "Firmware :";
             labelFw.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // toolStripMenuItemGithub
+            // 
+            toolStripMenuItemGithub.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            toolStripMenuItemGithub.ForeColor = Color.DodgerBlue;
+            toolStripMenuItemGithub.Name = "toolStripMenuItemGithub";
+            toolStripMenuItemGithub.Size = new Size(105, 20);
+            toolStripMenuItemGithub.Text = "DjPopol GitHub";
+            toolStripMenuItemGithub.TextImageRelation = TextImageRelation.Overlay;
+            toolStripMenuItemGithub.Click += ToolStripMenuItemGithub_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
