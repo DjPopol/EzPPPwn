@@ -104,6 +104,7 @@ namespace EzPPPwn
             }
             labelTimer.Text = $"{minutes}:{seconds}";
         }
+        private void ToolStripMenuItemGithub_Click(object sender, EventArgs e)
         private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateCpp();
