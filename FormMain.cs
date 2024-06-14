@@ -2,8 +2,9 @@
 using EzPPPwn.Extensions;
 using EzPPPwn.Helpers;
 using EzPPPwn.Models;
+using System;
 using System.Diagnostics;
-using System.Windows.Forms;
+using System.Security.Policy;
 using Timer = System.Windows.Forms.Timer;
 
 namespace EzPPPwn
@@ -38,7 +39,7 @@ namespace EzPPPwn
             }
             finally
             {
-                
+
             }
         }
         private async void FormMain_Shown(object sender, EventArgs e)
@@ -300,6 +301,8 @@ namespace EzPPPwn
             Enabled = false;
             formInstallRequired.Show();
         }
+
         #endregion
+        
     }
 }
