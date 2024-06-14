@@ -43,6 +43,7 @@ namespace EzPPPwn
             toolStripMenuItem1 = new ToolStripMenuItem();
             labelStatus = new Label();
             labelFw = new Label();
+            toolStripMenuItemGithub = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
