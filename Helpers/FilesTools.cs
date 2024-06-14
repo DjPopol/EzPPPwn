@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EzPPPwn.Helpers
 {
-    public static class FilesTools
+    public static class Files
     {
         const int BufferSize = 4096;
         public static string ConvertSize(long size, int decimals = 2)
