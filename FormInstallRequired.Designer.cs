@@ -138,6 +138,7 @@ namespace EzPPPwn
             Controls.Add(progressBarCurrent);
             Controls.Add(buttonCancel);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
