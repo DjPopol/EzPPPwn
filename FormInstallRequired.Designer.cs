@@ -143,7 +143,6 @@ namespace EzPPPwn
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "FormInstallRequired";
-            Text = "Ez PPPwn v1.11 by DjPopol";
             Shown += FormCheckRequired_Shown;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
