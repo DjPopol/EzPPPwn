@@ -1,7 +1,9 @@
 ﻿using EzPPPwn.Enums;
 using EzPPPwn.Models;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EzPPPwn.Helpers
 {
@@ -60,6 +62,21 @@ namespace EzPPPwn.Helpers
             string str = text[startIndex..];
             int endIndex = str.IndexOf(end);
             return str[..endIndex];
+        }
+        public static string GetTitle()
+        {
+            return $"Ez PPPwn v{GetVersion()} by DjPopol";
+        }
+       
+        public static Version? GetVersion()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            return assembly.GetName().Version;
+        }
+        public static string GetVersionStr()
+        {
+            Version? version = GetVersion();
+            return version != null ? version.Major + "." + version.Minor + version.Revision : string.Empty;
         }
         public static async Task<bool> IsConnectedToInternetAsync()
         {
