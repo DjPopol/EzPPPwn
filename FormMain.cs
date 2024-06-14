@@ -16,6 +16,7 @@ namespace EzPPPwn
         public FormMain()
         {
             InitializeComponent();
+            Text = $"Ez PPPwn v{Tools.GetVersionStr()}";
         }
         #region EVENTS
         private async void FormMain_FormClosing(object sender, FormClosingEventArgs e)
