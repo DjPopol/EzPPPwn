@@ -213,7 +213,6 @@ namespace EzPPPwn
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "FormMain";
-            Text = "Ez PPPwn  v1.11 by DjPopol ";
             FormClosing += FormMain_FormClosing;
             Shown += FormMain_Shown;
             menuStrip1.ResumeLayout(false);
