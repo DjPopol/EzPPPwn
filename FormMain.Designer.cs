@@ -206,6 +206,7 @@ namespace EzPPPwn
             Controls.Add(buttonCancel);
             Controls.Add(labelFw);
             Controls.Add(buttonStart);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 3, 4, 3);
