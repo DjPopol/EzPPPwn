@@ -1,4 +1,4 @@
-# EzPPPwn v1.10 by DjPopol with PPPwn C++ 
+# EzPPPwn v1.10 with PPPwn C++ 
 
 # Supported versions are:
 - FW 7.00 / 7.01 / 7.02
