@@ -118,7 +118,7 @@ namespace EzPPPwn
             // menuStrip1
             // 
             menuStrip1.BackColor = Color.LightGray;
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemConfig, showConsoleToolStripMenuItem, updateToolStripMenuItem, toolStripMenuItem1 });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemConfig, showConsoleToolStripMenuItem, updateToolStripMenuItem, toolStripMenuItem1, toolStripMenuItemGithub });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(484, 24);
