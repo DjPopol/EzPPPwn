@@ -19,7 +19,7 @@ namespace EzPPPwn.Helpers
                 {
                     Directory.CreateDirectory(destPath);
                 }
-                return await FilesTools.DownloadFileAsync("https://nmap.org/npcap/dist/npcap-1.79.exe", destPath, progress, cancellationToken ?? CancellationToken.None);
+                return await Files.DownloadFileAsync("https://nmap.org/npcap/dist/npcap-1.79.exe", destPath, progress, cancellationToken ?? CancellationToken.None);
             }
             catch (Exception ex)
             {
@@ -37,7 +37,7 @@ namespace EzPPPwn.Helpers
                     case WINDOWS_VERSION.WINDOWS7:
                         if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X86)
                         {
-                            if (await FilesTools.DownloadFileAsync(
+                            if (await Files.DownloadFileAsync(
                                 "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86-windows-gnu%28win7%29.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
@@ -47,7 +47,7 @@ namespace EzPPPwn.Helpers
                         else if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X64 ||
                             osInfos.Architecture == System.Runtime.InteropServices.Architecture.Arm64)
                         {
-                            if (await FilesTools.DownloadFileAsync(
+                            if (await Files.DownloadFileAsync(
                                 "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86_64-windows-gnu%28win7%29.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
@@ -64,7 +64,7 @@ namespace EzPPPwn.Helpers
                     case WINDOWS_VERSION.WINDOWS11:
                         if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X86)
                         {
-                            if (await FilesTools.DownloadFileAsync(
+                            if (await Files.DownloadFileAsync(
                                 "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86-windows-gnu.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
@@ -73,7 +73,7 @@ namespace EzPPPwn.Helpers
                         }
                         else if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X64)
                         {
-                            if (await FilesTools.DownloadFileAsync(
+                            if (await Files.DownloadFileAsync(
                                 "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86_64-windows-gnu.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
@@ -82,7 +82,7 @@ namespace EzPPPwn.Helpers
                         }
                         else if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.Arm64)
                         {
-                            if (await FilesTools.DownloadFileAsync(
+                            if (await Files.DownloadFileAsync(
                                 "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/aarch64-windows-gnu.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
@@ -156,11 +156,11 @@ namespace EzPPPwn.Helpers
                 }
                 if (firmware != null)
                 {
-                    return await FilesTools.ExtractZipEmbeddedResourceAsync("stages1.zip", Path.Combine(firmware.FwWithPoint, "stage1.bin"), destPath, progress);
+                    return await Files.ExtractZipEmbeddedResourceAsync("stages1.zip", Path.Combine(firmware.FwWithPoint, "stage1.bin"), destPath, progress);
                 }
                 else
                 {
-                    return await FilesTools.ExtractZipEmbeddedResourceAsync("stages1.zip", destPath, progress);
+                    return await Files.ExtractZipEmbeddedResourceAsync("stages1.zip", destPath, progress);
                 }
 
             }
@@ -236,7 +236,7 @@ namespace EzPPPwn.Helpers
                                 {
                                     SetProgress(new RequiredProgress() { Status = REQUIRED_PROGESS_STATUS.EXTRACTING, CurrentStatus = zipFilename });
                                     await Task.Delay(100);
-                                    result = await FilesTools.ExtractZipFileAsync(Path.Combine(Tools.PathTmp, zipFilename), Tools.PathTmp, new Progress<ExtractProgress>(SetExtractProgress));
+                                    result = await Files.ExtractZipFileAsync(Path.Combine(Tools.PathTmp, zipFilename), Tools.PathTmp, new Progress<ExtractProgress>(SetExtractProgress));
                                     await Task.Delay(100);
                                     if (result)
                                     {
@@ -258,7 +258,7 @@ namespace EzPPPwn.Helpers
                                         {
                                             SetProgress(new RequiredProgress() { Status = REQUIRED_PROGESS_STATUS.EXTRACTING, CurrentStatus = "pppwn.tar.gz" });
                                             await Task.Delay(100);
-                                            result = await FilesTools.ExtractTarGzAsync(Path.Combine(Tools.PathTmp, "pppwn.tar.gz"), destPath, new Progress<ExtractProgress>(SetExtractProgress));
+                                            result = await Files.ExtractTarGzAsync(Path.Combine(Tools.PathTmp, "pppwn.tar.gz"), destPath, new Progress<ExtractProgress>(SetExtractProgress));
                                             await Task.Delay(100);
                                             File.Delete(Path.Combine(Tools.PathTmp, "pppwn.tar.gz"));
                                         }
@@ -403,7 +403,7 @@ namespace EzPPPwn.Helpers
                             progress.ConsoleMessage = progress.CurrentStatus;
                             break;
                         case DOWNLOAD_PROGRESS_STATUS.DOWNLOADING:
-                            progress.CurrentStatus = $"Downloading {downloadProgress.Filename} {FilesTools.Round((decimal)downloadProgress.Percentage, 2)}%.";
+                            progress.CurrentStatus = $"Downloading {downloadProgress.Filename} {Files.Round((decimal)downloadProgress.Percentage, 2)}%.";
                             progress.ConsoleMessage = progress.CurrentStatus;
                             break;
                         case DOWNLOAD_PROGRESS_STATUS.FAILED:
@@ -443,7 +443,7 @@ namespace EzPPPwn.Helpers
                             progress.CurrentProgressMax = 100;
                             break;
                         case EXTRACT_PROGRESS_STATUS.EXTRACTING:
-                            progress.CurrentStatus = $"Extracting {extractProgress.Filename} {FilesTools.Round((decimal)extractProgress.BytesPercentage, 2)}%.";
+                            progress.CurrentStatus = $"Extracting {extractProgress.Filename} {Files.Round((decimal)extractProgress.BytesPercentage, 2)}%.";
                             progress.ConsoleMessage = progress.CurrentStatus;
                             break;
                         case EXTRACT_PROGRESS_STATUS.FAILED:
