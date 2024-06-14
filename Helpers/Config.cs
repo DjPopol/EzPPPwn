@@ -13,8 +13,8 @@ namespace EzPPPwn.Helpers
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
         public NetworkInterface? NetworkInterface = null;
-        public PPPwnOptions PPPwnConfig = new(true, true,4,false,false,false,0,true,1);
-        public static readonly string PathConfig = Path.Combine(Environment.CurrentDirectory, "config.json");
+        public PPPwnOptions PPPwnOptions = new(true, true,4,false,false,false,0,true,1);
+        public static readonly string Path = System.IO.Path.Combine(Environment.CurrentDirectory, "EzPPPwn.json");
         public string Stage2Path = string.Empty;
         public bool ShowConsole = true;
         #endregion
@@ -37,13 +37,13 @@ namespace EzPPPwn.Helpers
             }
             return result;
         }
-        public bool LoadConfig()
+        public bool Load()
         {
             try
             {
-                if (File.Exists(PathConfig))
+                if (File.Exists(Path))
                 {
-                    string jsonFile = File.ReadAllText(PathConfig);
+                    string jsonFile = File.ReadAllText(Path);
                     var result = JsonSerializer.Deserialize<JSONConfig>(jsonFile);
                     if (result != null && result is JSONConfig jsonConfig)
                     {
@@ -68,7 +68,7 @@ namespace EzPPPwn.Helpers
                         {
                             Console.WriteLine($"MyConfig.LoadConfig : Network interfaces not found ({jsonConfig.Interface}.");
                         }
-                        PPPwnConfig = PPPwnOptions.GetFromJSON(jsonConfig.JSON_PPPwnConfig);
+                        PPPwnOptions = PPPwnOptions.GetFromJSON(jsonConfig.JSON_PPPwnConfig);
                         Stage2Path = jsonConfig.Stage2Path;
                         ShowConsole = jsonConfig.ShowConsole;
                         return true;
@@ -94,11 +94,11 @@ namespace EzPPPwn.Helpers
                         Interface = NetworkInterface.Name,
                         Firmware = Firmware != null ? Firmware.FwWithPoint : string.Empty,
                         Stage2Path = Stage2Path,
-                        JSON_PPPwnConfig = PPPwnConfig.GetJSON(),
+                        JSON_PPPwnConfig = PPPwnOptions.GetJSON(),
                         ShowConsole = ShowConsole
                     };
                     string json = JsonSerializer.Serialize(jsonConfig, jsonSerializerOptions);
-                    File.WriteAllText(PathConfig, json);
+                    File.WriteAllText(Path, json);
                     return true;
                 }
                 return false;
@@ -109,12 +109,12 @@ namespace EzPPPwn.Helpers
                 return false;
             }
         }
-        public void SetConfig(NetworkInterface? networkInterface, Firmware firmware, string stage2Path, PPPwnOptions pppwnConfig)
+        public void Set(NetworkInterface? networkInterface, Firmware firmware, string stage2Path, PPPwnOptions pppwnOptions)
         {
             NetworkInterface = networkInterface;
             Firmware = firmware;
             Stage2Path = stage2Path;
-            PPPwnConfig = pppwnConfig;  
+            PPPwnOptions = pppwnOptions;  
         }
         #endregion
     }
