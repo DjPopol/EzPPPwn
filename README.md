@@ -1,4 +1,4 @@
-# EzPPPwn v1.20 with PPPwn C++ 
+# EzPPPwn v1.20
 
 # Supported versions are:
 - FW 7.00 / 7.01 / 7.02
