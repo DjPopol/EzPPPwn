@@ -1,5 +1,3 @@
-# EzPPPwn v1.20 by DjPopol with PPPwn C++ 
-
 # EzPPPwn v1.20 with PPPwn C++ 
 
 # Supported versions are:
