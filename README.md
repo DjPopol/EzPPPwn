@@ -36,7 +36,7 @@
 # If you don't have requirements it could help you to install it (Npcap, PPPwn C++, stage1.bin (Embedded resource)):
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d9963422-012b-47cd-8765-2663bd0c5568)
 
-If you don't accept installation, Application will close.
+- If you don't accept installation, Application will close.
 
 # FormRequired (Install requirements) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/871661dd-8b52-429d-ac46-70ac623f3d0d)
