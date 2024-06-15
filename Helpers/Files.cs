@@ -1,11 +1,11 @@
-﻿using EzPPPwn.Enums;
-using EzPPPwn.Models;
+﻿using DpLib.Enums;
+using DpLib.Models;
 using System.Globalization;
 using System.IO.Compression;
 using System.Reflection;
 using System.Text;
 
-namespace EzPPPwn.Helpers
+namespace DpLib.Helpers
 {
     public static class Files
     {
@@ -44,7 +44,7 @@ namespace EzPPPwn.Helpers
         public static async Task<bool> DownloadFileAsync(string url, string destPath, IProgress<DownloadProgress>? progress, CancellationToken? cancellationToken = null)
         {
             string filename = Path.GetFileName(new Uri(url).LocalPath);
-            destPath = Path.Combine(destPath, filename);  
+            destPath = Path.Combine(destPath, filename);
             try
             {
                 using HttpClient client = new();
@@ -97,7 +97,7 @@ namespace EzPPPwn.Helpers
                     long bytesRead = 0;
                     int totalEntries = 0;
                     int entriesProcessed = 0;
-                    if(!Directory.Exists(destPath))
+                    if (!Directory.Exists(destPath))
                     {
                         Directory.CreateDirectory(destPath);
                     }
@@ -182,11 +182,11 @@ namespace EzPPPwn.Helpers
             }
             catch (Exception ex)
             {
-                progress?.Report(new ExtractProgress() 
+                progress?.Report(new ExtractProgress()
                 {
                     Filename = resourceName,
                     Status = EXTRACT_PROGRESS_STATUS.FAILED,
-                    ErrorMessage = ex.Message 
+                    ErrorMessage = ex.Message
                 });
                 return false;
             }
@@ -216,7 +216,7 @@ namespace EzPPPwn.Helpers
                         {
                             try
                             {
-                                if (!entry.FullName.EndsWith('/') && entry.FullName.Replace("/","\\") == searchPathFilename)
+                                if (!entry.FullName.EndsWith('/') && entry.FullName.Replace("/", "\\") == searchPathFilename)
                                 {
                                     string? directoryName = Path.GetDirectoryName(entry.FullName);
                                     totalBytes = entry.Length;
@@ -480,7 +480,7 @@ namespace EzPPPwn.Helpers
                     if (!Directory.Exists(Path.GetDirectoryName(output)))
                     {
                         string? directoryName = Path.GetDirectoryName(output);
-                        if(directoryName != null)
+                        if (directoryName != null)
                         {
                             Directory.CreateDirectory(directoryName);
                         }
@@ -536,13 +536,13 @@ namespace EzPPPwn.Helpers
                 {
                     try
                     {
-                        destPath = Path.Combine(destPath, entry.FullName);
-                        string? directoryPath = Path.GetDirectoryName(destPath);
+                        string dest = Path.Combine(destPath, entry.FullName);
+                        string? directoryPath = Path.GetDirectoryName(dest);
                         if (!string.IsNullOrEmpty(entry.Name) && directoryPath != null) // Not a directory entry
                         {
                             Directory.CreateDirectory(directoryPath); // Ensure directory exists
 
-                            entry.ExtractToFile(destPath, true);
+                            entry.ExtractToFile(dest, true);
                             bytesRead += entry.Length;
                         }
 
@@ -745,6 +745,19 @@ namespace EzPPPwn.Helpers
                     ErrorMessage = ex.Message
                 });
                 return false;
+            }
+        }
+        public static string GetFileNameFromUrl(string downloadUrl)
+        {
+            try
+            {
+                Uri uri = new (downloadUrl);
+                return Path.GetFileName(uri.LocalPath);
+            }
+            catch (UriFormatException ex)
+            {
+                Console.WriteLine($"Error parsing URL: {ex.Message}");
+                return string.Empty;
             }
         }
         public static string Round(decimal value, int decimals)

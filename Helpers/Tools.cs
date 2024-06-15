@@ -3,7 +3,6 @@ using EzPPPwn.Models;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace EzPPPwn.Helpers
 {

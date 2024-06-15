@@ -1,4 +1,4 @@
-﻿using EzPPPwn.Controls;
+﻿using DpLib.Winform.Controls;
 
 namespace EzPPPwn
 {
@@ -34,17 +34,20 @@ namespace EzPPPwn
             textBoxLog = new TextBox();
             buttonStart = new Button();
             buttonCancel = new Button();
-            progressBar = new DP_TextProgressBar();
+            progressBar = new DpTextProgressBar();
             labelTimer = new Label();
             menuStrip1 = new MenuStrip();
             toolStripMenuItemConfig = new ToolStripMenuItem();
             showConsoleToolStripMenuItem = new ToolStripMenuItem();
             updateToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
-            toolStripMenuItemGithub = new ToolStripMenuItem();
             labelStatus = new Label();
             labelFw = new Label();
+            pictureBoxGitHub = new PictureBox();
+            labelDjPopol = new Label();
+            labelFirmware = new Label();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGitHub).BeginInit();
             SuspendLayout();
             // 
             // textBoxLog
@@ -52,7 +55,7 @@ namespace EzPPPwn
             textBoxLog.BackColor = Color.Black;
             textBoxLog.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxLog.ForeColor = Color.White;
-            textBoxLog.Location = new Point(11, 133);
+            textBoxLog.Location = new Point(7, 135);
             textBoxLog.Margin = new Padding(4, 3, 4, 3);
             textBoxLog.Multiline = true;
             textBoxLog.Name = "textBoxLog";
@@ -68,7 +71,7 @@ namespace EzPPPwn
             buttonStart.FlatStyle = FlatStyle.Flat;
             buttonStart.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonStart.ForeColor = Color.DodgerBlue;
-            buttonStart.Location = new Point(189, 102);
+            buttonStart.Location = new Point(187, 104);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(100, 25);
             buttonStart.TabIndex = 1;
@@ -83,7 +86,7 @@ namespace EzPPPwn
             buttonCancel.FlatStyle = FlatStyle.Flat;
             buttonCancel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonCancel.ForeColor = Color.DodgerBlue;
-            buttonCancel.Location = new Point(189, 102);
+            buttonCancel.Location = new Point(187, 104);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(100, 25);
             buttonCancel.TabIndex = 2;
@@ -95,7 +98,7 @@ namespace EzPPPwn
             // progressBar
             // 
             progressBar.CustomText = "";
-            progressBar.Location = new Point(12, 48);
+            progressBar.Location = new Point(7, 48);
             progressBar.Name = "progressBar";
             progressBar.ProgressColor = Color.LightGreen;
             progressBar.Round = 0;
@@ -110,7 +113,7 @@ namespace EzPPPwn
             // 
             labelTimer.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelTimer.ForeColor = Color.White;
-            labelTimer.Location = new Point(319, 102);
+            labelTimer.Location = new Point(315, 104);
             labelTimer.Name = "labelTimer";
             labelTimer.Size = new Size(152, 25);
             labelTimer.TabIndex = 5;
@@ -119,10 +122,10 @@ namespace EzPPPwn
             // menuStrip1
             // 
             menuStrip1.BackColor = Color.LightGray;
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemConfig, showConsoleToolStripMenuItem, updateToolStripMenuItem, toolStripMenuItem1, toolStripMenuItemGithub });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemConfig, showConsoleToolStripMenuItem, updateToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(484, 24);
+            menuStrip1.Size = new Size(474, 24);
             menuStrip1.TabIndex = 7;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -154,29 +157,18 @@ namespace EzPPPwn
             updateToolStripMenuItem.Name = "updateToolStripMenuItem";
             updateToolStripMenuItem.Size = new Size(101, 20);
             updateToolStripMenuItem.Text = "Update PPPwn";
-            updateToolStripMenuItem.Visible = false;
-            updateToolStripMenuItem.Click += UpdateToolStripMenuItem_Click;
+            updateToolStripMenuItem.Click += UpdatePPPwnToolStripMenuItem_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(12, 20);
             // 
-            // toolStripMenuItemGithub
-            // 
-            toolStripMenuItemGithub.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            toolStripMenuItemGithub.ForeColor = Color.DodgerBlue;
-            toolStripMenuItemGithub.Name = "toolStripMenuItemGithub";
-            toolStripMenuItemGithub.Size = new Size(59, 20);
-            toolStripMenuItemGithub.Text = "GitHub";
-            toolStripMenuItemGithub.TextImageRelation = TextImageRelation.Overlay;
-            toolStripMenuItemGithub.Click += ToolStripMenuItemGithub_Click;
-            // 
             // labelStatus
             // 
             labelStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelStatus.ForeColor = Color.White;
-            labelStatus.Location = new Point(11, 76);
+            labelStatus.Location = new Point(7, 76);
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new Size(460, 25);
             labelStatus.TabIndex = 8;
@@ -184,29 +176,71 @@ namespace EzPPPwn
             // 
             // labelFw
             // 
+            labelFw.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelFw.AutoSize = true;
             labelFw.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelFw.ForeColor = Color.White;
-            labelFw.Location = new Point(12, 24);
+            labelFw.Location = new Point(173, 24);
+            labelFw.Margin = new Padding(0);
             labelFw.Name = "labelFw";
-            labelFw.Size = new Size(460, 21);
+            labelFw.Size = new Size(89, 21);
             labelFw.TabIndex = 9;
             labelFw.Text = "Firmware :";
             labelFw.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pictureBoxGitHub
+            // 
+            pictureBoxGitHub.Cursor = Cursors.Hand;
+            pictureBoxGitHub.Image = Properties.Resources.github;
+            pictureBoxGitHub.Location = new Point(7, 312);
+            pictureBoxGitHub.Name = "pictureBoxGitHub";
+            pictureBoxGitHub.Size = new Size(100, 25);
+            pictureBoxGitHub.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxGitHub.TabIndex = 10;
+            pictureBoxGitHub.TabStop = false;
+            pictureBoxGitHub.Click += PictureBoxGitHub_Click;
+            // 
+            // labelDjPopol
+            // 
+            labelDjPopol.AutoSize = true;
+            labelDjPopol.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            labelDjPopol.ForeColor = Color.White;
+            labelDjPopol.Location = new Point(319, 312);
+            labelDjPopol.Name = "labelDjPopol";
+            labelDjPopol.Size = new Size(148, 25);
+            labelDjPopol.TabIndex = 11;
+            labelDjPopol.Text = "©2024 DjPopol";
+            // 
+            // labelFirmware
+            // 
+            labelFirmware.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            labelFirmware.AutoSize = true;
+            labelFirmware.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelFirmware.ForeColor = Color.Lime;
+            labelFirmware.Location = new Point(262, 24);
+            labelFirmware.Margin = new Padding(0);
+            labelFirmware.Name = "labelFirmware";
+            labelFirmware.Size = new Size(0, 21);
+            labelFirmware.TabIndex = 12;
+            labelFirmware.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DodgerBlue;
-            ClientSize = new Size(484, 131);
-            Controls.Add(labelStatus);
+            ClientSize = new Size(474, 345);
+            Controls.Add(labelFw);
+            Controls.Add(labelFirmware);
+            Controls.Add(labelDjPopol);
+            Controls.Add(pictureBoxGitHub);
             Controls.Add(labelTimer);
             Controls.Add(textBoxLog);
             Controls.Add(progressBar);
             Controls.Add(menuStrip1);
             Controls.Add(buttonCancel);
-            Controls.Add(labelFw);
             Controls.Add(buttonStart);
+            Controls.Add(labelStatus);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
@@ -217,6 +251,7 @@ namespace EzPPPwn
             Shown += FormMain_Shown;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGitHub).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -226,7 +261,7 @@ namespace EzPPPwn
         private System.Windows.Forms.TextBox textBoxLog;
         private Button buttonStart;
         private Button buttonCancel;
-        private DP_TextProgressBar progressBar;
+        private DpTextProgressBar progressBar;
         private Label labelTimer;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem toolStripMenuItemConfig;
@@ -235,6 +270,8 @@ namespace EzPPPwn
         private ToolStripMenuItem updateToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
         private Label labelFw;
-        private ToolStripMenuItem toolStripMenuItemGithub;
+        private PictureBox pictureBoxGitHub;
+        private Label labelDjPopol;
+        private Label labelFirmware;
     }
 }

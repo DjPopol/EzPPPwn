@@ -79,7 +79,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Controls\DP_TextProgressBar.cs" />
   </ItemGroup>
 
   <ItemGroup>

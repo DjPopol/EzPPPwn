@@ -1,4 +1,5 @@
-﻿using EzPPPwn.Enums;
+﻿using DpLib.Enums;
+using EzPPPwn.Enums;
 using EzPPPwn.Models;
 using System.Diagnostics;
 

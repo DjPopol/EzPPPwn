@@ -2,15 +2,15 @@
 using EzPPPwn.Extensions;
 using EzPPPwn.Helpers;
 using EzPPPwn.Models;
-using System;
 using System.Diagnostics;
-using System.Security.Policy;
 using Timer = System.Windows.Forms.Timer;
 
 namespace EzPPPwn
 {
     public partial class FormMain : Form
     {
+        int originalFormHeight;
+        int originalTextBoxHeight;
         PPPwnTask? worker;
         private readonly Timer timer = new();
         TimeSpan timeElapsed;
@@ -18,6 +18,8 @@ namespace EzPPPwn
         {
             InitializeComponent();
             Text = $"Ez PPPwn v{Tools.GetVersionStr()}";
+            originalFormHeight = this.Height;
+            originalTextBoxHeight = textBoxLog.Height;
         }
         #region EVENTS
         private async void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -83,6 +85,10 @@ namespace EzPPPwn
         {
             OpenConfig();
         }
+        private void PictureBoxGitHub_Click(object sender, EventArgs e)
+        {
+            OpenGitHub();
+        }
         private void TimerTick(object? sender, EventArgs e)
         {
             timeElapsed = timeElapsed.Add(TimeSpan.FromSeconds(1));
@@ -106,28 +112,33 @@ namespace EzPPPwn
             }
             labelTimer.Text = $"{minutes}:{seconds}";
         }
-        private void ToolStripMenuItemGithub_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ProcessStartInfo psi = new() 
-                {
-                    FileName = "https://github.com/DjPopol/EzPPPwn",
-                    UseShellExecute = true
-                };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error opening page: " + ex.Message);
-            }
-        }
         private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void UpdatePPPwnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateCpp();
         }
         #endregion
         #region FUNCTIONS
+        private void AdjustFormAndControls(bool showTextBox)
+        {
+            if (showTextBox)
+            {
+                // Show the TextBox, reset controls to original positions
+                pictureBoxGitHub.Top = textBoxLog.Bottom + 10; // Adjust the controls' top position
+                labelDjPopol.Top = textBoxLog.Bottom + 10;
+                Height = originalFormHeight;
+            }
+            else
+            {
+                // Hide the TextBox, move controls up and shrink form height
+                pictureBoxGitHub.Top = textBoxLog.Top; // Adjust the controls' top position
+                labelDjPopol.Top = textBoxLog.Top;
+                Height = originalFormHeight - originalTextBoxHeight;
+            }
+        }
         private async Task Init()
         {
             REQUIRED_JOBS[]? requiredJobs = RequiredTask.IsRequiredInstalled(Tools.MyConfig.Firmware);
@@ -185,7 +196,7 @@ namespace EzPPPwn
                 ShowConsole();
                 buttonStart.Focus();
                 labelStatus.Text = "Ready ?";
-                labelFw.Text = $"Firmware : {Tools.MyConfig.Firmware.FwWithPoint}";
+                labelFirmware.Text = Tools.MyConfig.Firmware.FwWithPoint;
                 updateToolStripMenuItem.Visible = await Tools.IsConnectedToInternetAsync();
                 Show();
             }
@@ -217,6 +228,22 @@ namespace EzPPPwn
             Hide();
             Enabled = false;
             formConfig.Show();
+        }
+        void OpenGitHub()
+        {
+            try
+            {
+                ProcessStartInfo psi = new()
+                {
+                    FileName = "https://github.com/DjPopol/EzPPPwn",
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening page: " + ex.Message);
+            }
         }
         private void RunExploit()
         {
@@ -286,8 +313,20 @@ namespace EzPPPwn
         }
         private void ShowConsole()
         {
-            Height = Tools.MyConfig.ShowConsole ? 355 : 170;
+            //Height = Tools.MyConfig.ShowConsole ? 355 : 170;
             showConsoleToolStripMenuItem.Text = Tools.MyConfig.ShowConsole ? "Hide Console" : "Show Console";
+            if (textBoxLog.Visible)
+            {
+                // Hide the TextBox
+                textBoxLog.Visible = false;
+                AdjustFormAndControls(false);
+            }
+            else
+            {
+                // Show the TextBox
+                textBoxLog.Visible = true;
+                AdjustFormAndControls(true);
+            }
         }
         private void UpdateCpp()
         {
@@ -301,8 +340,6 @@ namespace EzPPPwn
             Enabled = false;
             formInstallRequired.Show();
         }
-
         #endregion
-        
     }
 }

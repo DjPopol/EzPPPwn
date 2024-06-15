@@ -1,4 +1,7 @@
-﻿using EzPPPwn.Enums;
+﻿using DpLib.Enums;
+using DpLib.Helpers;
+using DpLib.Models;
+using EzPPPwn.Enums;
 using EzPPPwn.Extensions;
 using EzPPPwn.Models;
 using System.Diagnostics;
