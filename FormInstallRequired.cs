@@ -13,6 +13,7 @@ namespace EzPPPwn
         {
             _jobs = jobs;
             InitializeComponent();
+            Text = $"Ez PPPwn v{Tools.GetVersionStr()}";
         }
         #region EVENTS
         private void FormCheckRequired_Shown(object sender, EventArgs e)

@@ -1,6 +1,6 @@
-﻿namespace EzPPPwn.Extensions
+﻿namespace DpLib.Extensions
 {
-    public static class DP_StringExtensions
+    public static class DpStringExtensions
     {
         public static string ToFirstUpper(this string str)
         {

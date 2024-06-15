@@ -1,4 +1,4 @@
-# EzPPPwn v1.10 with PPPwn C++ 
+# EzPPPwn v1.20
 
 # Supported versions are:
 - FW 7.00 / 7.01 / 7.02
@@ -41,7 +41,7 @@
 # FormRequired (Install requirements) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/871661dd-8b52-429d-ac46-70ac623f3d0d)
 - Add Cancel button
-- If you canceld installation, Application will close.
+- If you canceled installation, Application will close.
 
 
 # Usage

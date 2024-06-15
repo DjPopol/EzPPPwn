@@ -1,10 +1,9 @@
-﻿using EzPPPwn.Enums;
+﻿using DpLib.Enums;
 
-namespace EzPPPwn.Models
+namespace DpLib.Models
 {
     public class ExtractProgress
     {
-        public ExtractProgress() { }
         public int TotalFiles = 0;
         public string Filename = string.Empty;
         public int FilesProcessed = 0;
@@ -15,6 +14,5 @@ namespace EzPPPwn.Models
         public string CurrentFile = string.Empty;
         public string ErrorMessage = string.Empty;
         public EXTRACT_PROGRESS_STATUS Status = EXTRACT_PROGRESS_STATUS.NONE;
-
     }
 }

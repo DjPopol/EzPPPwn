@@ -348,11 +348,10 @@ namespace EzPPPwn
             Controls.Add(buttonContinue);
             Controls.Add(groupBoxNetworkInterface);
             Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "FormConfig";
-            Text = "Ez PPPwn v1.11 by DjPopol";
             Shown += FormConfig_Shown;
             groupBoxNetworkInterface.ResumeLayout(false);
             groupBoxPPPwnOptions.ResumeLayout(false);

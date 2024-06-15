@@ -11,7 +11,7 @@ namespace EzPPPwn
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Tools.MyConfig.LoadConfig();
+            Tools.MyConfig.Load();
             Application.Run(new FormMain());
         }
     }

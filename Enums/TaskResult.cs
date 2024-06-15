@@ -1,4 +1,4 @@
-﻿namespace EzPPPwn.Enums
+﻿namespace DpLib.Enums
 {
     public enum TASK_RESULT
     {
