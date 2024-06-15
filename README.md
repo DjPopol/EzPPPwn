@@ -40,7 +40,7 @@ If you don't accept installation, Application will close.
 # FormRequired (Install requirements) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/871661dd-8b52-429d-ac46-70ac623f3d0d)
 - Add Cancel button
-- If you canceld installation, Application will close.
+- If you canceled installation, Application will close.
 
 
 # Usage
