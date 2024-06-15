@@ -78,18 +78,30 @@ namespace DpLib.Helpers
                 _ = int.TryParse(parts[0], out major);
                 if (parts.Length >= 2)
                 {
-                    _ = int.TryParse(parts[1], out minor);
-
-                    // Check if the third part exists (build)
-                    if (parts.Length >= 3)
+                    if (parts[1].Length > 1)
                     {
-                        _ = int.TryParse(parts[2], out build);
+                        _ = int.TryParse(parts[1].Substring(0, 1), out minor);
+                        _ = int.TryParse(parts[1].Substring(1, 1), out build);
+                        if (parts[1].Length == 3)
+                        {
+                            _ = int.TryParse(parts[1].Substring(2, 1), out revision);
+                        }
                     }
-
-                    // Check if the fourth part exists (revision)
-                    if (parts.Length >= 4)
+                    else
                     {
-                        _ = int.TryParse(parts[3], out revision);
+                        _ = int.TryParse(parts[1], out minor);
+
+                        // Check if the third part exists (build)
+                        if (parts.Length >= 3)
+                        {
+                            _ = int.TryParse(parts[2], out build);
+                        }
+
+                        // Check if the fourth part exists (revision)
+                        if (parts.Length >= 4)
+                        {
+                            _ = int.TryParse(parts[3], out revision);
+                        }
                     }
                 }
             }

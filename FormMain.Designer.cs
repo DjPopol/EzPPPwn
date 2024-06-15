@@ -39,8 +39,9 @@ namespace EzPPPwn
             menuStrip1 = new MenuStrip();
             toolStripMenuItemConfig = new ToolStripMenuItem();
             showConsoleToolStripMenuItem = new ToolStripMenuItem();
-            updateToolStripMenuItem = new ToolStripMenuItem();
+            updateCppToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
+            updateToolStripMenuItem = new ToolStripMenuItem();
             labelStatus = new Label();
             labelFw = new Label();
             pictureBoxGitHub = new PictureBox();
@@ -122,7 +123,7 @@ namespace EzPPPwn
             // menuStrip1
             // 
             menuStrip1.BackColor = Color.LightGray;
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemConfig, showConsoleToolStripMenuItem, updateToolStripMenuItem, toolStripMenuItem1 });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemConfig, showConsoleToolStripMenuItem, updateCppToolStripMenuItem, toolStripMenuItem1, updateToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(474, 24);
@@ -150,19 +151,28 @@ namespace EzPPPwn
             showConsoleToolStripMenuItem.TextImageRelation = TextImageRelation.Overlay;
             showConsoleToolStripMenuItem.Click += ShowConsoleToolStripMenuItem_Click;
             // 
-            // updateToolStripMenuItem
+            // updateCppToolStripMenuItem
             // 
-            updateToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            updateToolStripMenuItem.ForeColor = Color.DodgerBlue;
-            updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            updateToolStripMenuItem.Size = new Size(101, 20);
-            updateToolStripMenuItem.Text = "Update PPPwn";
-            updateToolStripMenuItem.Click += UpdatePPPwnToolStripMenuItem_Click;
+            updateCppToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            updateCppToolStripMenuItem.ForeColor = Color.DodgerBlue;
+            updateCppToolStripMenuItem.Name = "updateCppToolStripMenuItem";
+            updateCppToolStripMenuItem.Size = new Size(101, 20);
+            updateCppToolStripMenuItem.Text = "Update PPPwn";
+            updateCppToolStripMenuItem.Click += UpdateCppPPPwnToolStripMenuItem_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(12, 20);
+            // 
+            // updateToolStripMenuItem
+            // 
+            updateToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            updateToolStripMenuItem.ForeColor = Color.DodgerBlue;
+            updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            updateToolStripMenuItem.Size = new Size(60, 20);
+            updateToolStripMenuItem.Text = "Update";
+            updateToolStripMenuItem.Click += UpdateToolStripMenuItem_Click;
             // 
             // labelStatus
             // 
@@ -267,11 +277,12 @@ namespace EzPPPwn
         private ToolStripMenuItem toolStripMenuItemConfig;
         private Label labelStatus;
         private ToolStripMenuItem showConsoleToolStripMenuItem;
-        private ToolStripMenuItem updateToolStripMenuItem;
+        private ToolStripMenuItem updateCppToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
         private Label labelFw;
         private PictureBox pictureBoxGitHub;
         private Label labelDjPopol;
         private Label labelFirmware;
+        private ToolStripMenuItem updateToolStripMenuItem;
     }
 }

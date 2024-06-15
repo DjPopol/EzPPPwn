@@ -8,8 +8,9 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>EzPPPwn.Program</StartupObject>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
-    <FileVersion>1.2.0</FileVersion>
+	<Version>1.2.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
     <ApplicationIcon>Resources\ps4-pro-black.ico</ApplicationIcon>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <SignAssembly>False</SignAssembly>
@@ -59,6 +60,7 @@
 
   <ItemGroup>
     <None Remove="Resources\stages1.zip" />
+    <None Remove="Resources\token.dp" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +69,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\stages1.zip" />
+    <EmbeddedResource Include="Resources\token.dp" />
   </ItemGroup>
 
   <ItemGroup>

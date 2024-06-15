@@ -1,5 +1,9 @@
-﻿using EzPPPwn.Enums;
-using DpLib.Extensions;
+﻿using DpLib.Extensions;
+using DpLib.Helpers;
+using DpLib.Models;
+using DpLib.Winform;
+using DpLib.Winform.Controls;
+using EzPPPwn.Enums;
 using EzPPPwn.Helpers;
 using EzPPPwn.Models;
 using System.Diagnostics;
@@ -11,6 +15,7 @@ namespace EzPPPwn
     {
         int originalFormHeight;
         int originalTextBoxHeight;
+        ReleaseInfos latestInfos = new();
         PPPwnTask? worker;
         private readonly Timer timer = new();
         TimeSpan timeElapsed;
@@ -112,17 +117,18 @@ namespace EzPPPwn
             }
             labelTimer.Text = $"{minutes}:{seconds}";
         }
-        private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void UpdatePPPwnToolStripMenuItem_Click(object sender, EventArgs e)
+        void UpdateCppPPPwnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateCpp();
         }
+
+        void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowUpdate();
+        }
         #endregion
         #region FUNCTIONS
-        private void AdjustFormAndControls(bool showTextBox)
+        void AdjustFormAndControls(bool showTextBox)
         {
             if (showTextBox)
             {
@@ -139,9 +145,20 @@ namespace EzPPPwn
                 Height = originalFormHeight - originalTextBoxHeight;
             }
         }
-        private async Task Init()
+        async Task Init()
         {
+            Refresh();
+            UpdateManager updateManager = new("https://api.github.com/repos/DjPopol/EzPPPwn/releases", Tools.GetToken());
+            Version currentVersion = Tools.GetVersion();
+            latestInfos = await updateManager.GetLastReleaseInfosAsync();
+            bool IsUptoDate = latestInfos.Version == new Version() || latestInfos.Version <= currentVersion;
+            updateCppToolStripMenuItem.Visible = !IsUptoDate;
+            if (Tools.MyConfig.CheckUpdateOnStartUp && !IsUptoDate)
+            {
+                ShowUpdate();
+            }
             REQUIRED_JOBS[]? requiredJobs = RequiredTask.IsRequiredInstalled(Tools.MyConfig.Firmware);
+
             if (Tools.MyConfig == null || !Tools.MyConfig.CheckConfig())
             {
                 OpenConfig();
@@ -197,19 +214,19 @@ namespace EzPPPwn
                 buttonStart.Focus();
                 labelStatus.Text = "Ready ?";
                 labelFirmware.Text = Tools.MyConfig.Firmware.FwWithPoint;
-                updateToolStripMenuItem.Visible = await Tools.IsConnectedToInternetAsync();
+                updateCppToolStripMenuItem.Visible = await Tools.IsConnectedToInternetAsync();
                 Show();
             }
             return;
         }
-        private void LockButtons(bool locked)
+        void LockButtons(bool locked)
         {
             buttonCancel.Visible = locked;
             buttonStart.Visible = !locked;
             toolStripMenuItemConfig.Enabled = !locked;
-            updateToolStripMenuItem.Enabled = !locked;
+            updateCppToolStripMenuItem.Enabled = !locked;
         }
-        private void OpenConfig()
+        void OpenConfig()
         {
             FormConfig formConfig = new();
             formConfig.FormClosing += new FormClosingEventHandler(async (object? sender, FormClosingEventArgs e) =>
@@ -245,7 +262,7 @@ namespace EzPPPwn
                 MessageBox.Show("Error opening page: " + ex.Message);
             }
         }
-        private void RunExploit()
+        void RunExploit()
         {
             if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "C++", "pppwn.exe")))
             {
@@ -273,7 +290,7 @@ namespace EzPPPwn
                 }
             }
         }
-        public void SetProgress(PPPwnProgress progress)
+        void SetProgress(PPPwnProgress progress)
         {
             Invoke(new Action(() =>
             {
@@ -311,7 +328,7 @@ namespace EzPPPwn
                 }
             }));
         }
-        private void ShowConsole()
+        void ShowConsole()
         {
             //Height = Tools.MyConfig.ShowConsole ? 355 : 170;
             showConsoleToolStripMenuItem.Text = Tools.MyConfig.ShowConsole ? "Hide Console" : "Show Console";
@@ -328,7 +345,31 @@ namespace EzPPPwn
                 AdjustFormAndControls(true);
             }
         }
-        private void UpdateCpp()
+        async void ShowUpdate()
+        {
+            DpMessageBox messageBox = new($"{latestInfos.Name} is avaible.\nWould you like to update ?", "New Update avaible", MessageBoxButtons.YesNo, MessageBoxIcon.Question, true, Tools.MyConfig.CheckUpdateOnStartUp)
+            {
+                CheckBoxText = "Show at startup"
+            };
+            DialogResult = messageBox.ShowDialog();
+            Tools.MyConfig.CheckUpdateOnStartUp = messageBox.CheckBoxChecked;
+            Tools.MyConfig.Save();
+            if (DialogResult == DialogResult.Yes)
+            {
+                // Update
+                DpFormUpdate formUpdate = new(latestInfos, Tools.MyConfig.ShowConsole);
+                formUpdate.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
+                {
+                    Enabled = true;
+                    Close();
+                });
+                Enabled = false;
+                await Task.Delay(100);
+                formUpdate.Show();
+                Hide();
+            }
+        }
+        void UpdateCpp()
         {
             FormInstallRequired formInstallRequired = new([REQUIRED_JOBS.INSTALL_PPPWN_CPP]);
             formInstallRequired.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>

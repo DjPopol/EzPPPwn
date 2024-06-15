@@ -15,7 +15,7 @@ namespace DpLib.Winform
         bool _showConsole;
         public DpFormUpdate(ReleaseInfos releaseInfos, bool showConsole)
         {
-            pathTmp = Path.Combine(Path.GetTempPath(), releaseInfos.Name);
+            pathTmp = Path.Combine(Path.GetTempPath(), "EzPPPwn");
             _releaseInfos = releaseInfos;
             InitializeComponent();
             Text = $"Update {releaseInfos.Name}";
@@ -59,7 +59,6 @@ namespace DpLib.Winform
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 UseShellExecute = true,
-                Verb = "runas", // This verb elevates the process to run as administrator
             };
             Process process = new() { StartInfo = psi };
             process.Start();

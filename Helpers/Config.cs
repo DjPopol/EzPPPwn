@@ -7,6 +7,7 @@ namespace EzPPPwn.Helpers
     public class Config
     {
         #region PROPERTIES
+        public bool CheckUpdateOnStartUp = true;
         public Firmware Firmware = new("11.00");
         private readonly JsonSerializerOptions jsonSerializerOptions = new()
         {
@@ -47,6 +48,7 @@ namespace EzPPPwn.Helpers
                     var result = JsonSerializer.Deserialize<JSONConfig>(jsonFile);
                     if (result != null && result is JSONConfig jsonConfig)
                     {
+                        CheckUpdateOnStartUp = jsonConfig.CheckUpdateOnStartUp;
                         Firmware = new(jsonConfig.Firmware);
                         NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
                         if (nics == null || nics.Length < 1)
@@ -95,7 +97,8 @@ namespace EzPPPwn.Helpers
                         Firmware = Firmware != null ? Firmware.FwWithPoint : string.Empty,
                         Stage2Path = Stage2Path,
                         JSON_PPPwnConfig = PPPwnOptions.GetJSON(),
-                        ShowConsole = ShowConsole
+                        ShowConsole = ShowConsole,
+                        CheckUpdateOnStartUp = CheckUpdateOnStartUp
                     };
                     string json = JsonSerializer.Serialize(jsonConfig, jsonSerializerOptions);
                     File.WriteAllText(Path, json);

@@ -66,11 +66,26 @@ namespace EzPPPwn.Helpers
         {
             return $"Ez PPPwn v{GetVersion()} by DjPopol";
         }
-       
-        public static Version? GetVersion()
+        public static string GetToken()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            string? assemblyName = assembly.GetName().Name;
+            if (assemblyName != null)
+            {
+                string resourceName = $"{assemblyName}.Resources.token.dp"; // Replace YourNamespace with your project's namespace
+
+                using Stream stream = assembly.GetManifestResourceStream(resourceName) ?? throw new InvalidOperationException("Token file not found.");
+                using StreamReader reader = new(stream);
+                return reader.ReadToEnd().Trim();
+            }
+            return string.Empty;
+        }
+        public static Version GetVersion()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
+#pragma warning disable CS8603 // Existence possible d'un retour de référence null.
             return assembly.GetName().Version;
+#pragma warning restore CS8603 // Existence possible d'un retour de référence null.
         }
         public static string GetVersionStr()
         {
