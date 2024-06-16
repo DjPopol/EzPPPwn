@@ -83,8 +83,8 @@ namespace EzPPPwn
         private void ShowConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Tools.MyConfig.ShowConsole = !Tools.MyConfig.ShowConsole;
-            ShowConsole();
             Tools.MyConfig.Save();
+            ShowConsole();
         }
         private void ConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -203,6 +203,7 @@ namespace EzPPPwn
                         await Task.Delay(100);
                         formInstallRequired.Show();
                         Hide();
+                        return;
                     }
                     else
                     {
@@ -213,6 +214,7 @@ namespace EzPPPwn
             else if (Tools.MyConfig == null || !Tools.MyConfig.CheckConfig())
             {
                 OpenConfig();
+                return;
             }
             else
             {
@@ -338,18 +340,9 @@ namespace EzPPPwn
         void ShowConsole()
         {
             showConsoleToolStripMenuItem.Text = Tools.MyConfig.ShowConsole ? "Hide Console" : "Show Console";
-            if (textBoxLog.Visible)
-            {
-                // Hide the TextBox
-                textBoxLog.Visible = false;
-                AdjustFormAndControls(false);
-            }
-            else
-            {
-                // Show the TextBox
-                textBoxLog.Visible = true;
-                AdjustFormAndControls(true);
-            }
+            // Hide the TextBox
+            textBoxLog.Visible = Tools.MyConfig.ShowConsole;
+            AdjustFormAndControls(Tools.MyConfig.ShowConsole);
         }
         async void ShowUpdate()
         {

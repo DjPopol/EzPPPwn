@@ -16,6 +16,7 @@
     <SignAssembly>False</SignAssembly>
     <ErrorReport>none</ErrorReport>
     <Platforms>AnyCPU;x86;x64;ARM32;ARM64</Platforms>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
