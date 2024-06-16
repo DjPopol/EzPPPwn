@@ -4,6 +4,7 @@ namespace EzPPPwn.Models
 {
     public class JSONConfig
     {
+        public required bool CheckUpdateOnStartUp { get; set; }
         public required string Interface { get; set; }
         public required string Firmware { get; set; }
         public required bool ShowConsole { get; set; }

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace EzPPPwn.Extensions
+namespace DpLib.Extensions
 {
-    public static class DP_EnumExtensions
+    public static class DpEnumExtensions
     {
         public static string Description<TEnum>(this TEnum EnumValue) where TEnum : struct
         {

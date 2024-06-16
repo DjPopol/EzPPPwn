@@ -1,4 +1,5 @@
-﻿using EzPPPwn.Enums;
+﻿using DpLib.Enums;
+using EzPPPwn.Enums;
 using EzPPPwn.Models;
 using System.Diagnostics;
 
@@ -42,7 +43,7 @@ namespace EzPPPwn.Helpers
                     else if (e.Data.Contains("Failed", StringComparison.CurrentCultureIgnoreCase))
                     {
                         callback?.Report(new PPPwnProgress() { Status = PPPWN_PROGESS_STATUS.FAILED, ConsoleMessage = e.Data + Environment.NewLine, Message = e.Data });
-                        if (!Tools.MyConfig.PPPwnConfig.UseAutoRetry && !process.HasExited)
+                        if (!Tools.MyConfig.PPPwnOptions.UseAutoRetry && !process.HasExited)
                         {
                             process.Kill();
                         }
@@ -104,27 +105,27 @@ namespace EzPPPwn.Helpers
                         }
                     );
                     string args = $" --interface \"\\Device\\NPF_{Tools.MyConfig.NetworkInterface.Id}\" --fw {Tools.MyConfig.Firmware.Fw} --stage1 \"{stage1Path}\" --stage2 \"{Tools.MyConfig.Stage2Path}\"";
-                    if (Tools.MyConfig.PPPwnConfig.UseTimeOut)
+                    if (Tools.MyConfig.PPPwnOptions.UseTimeOut)
                     {
-                        args += $" --timeout {Tools.MyConfig.PPPwnConfig.TimeOut}";
+                        args += $" --timeout {Tools.MyConfig.PPPwnOptions.TimeOut}";
                     }
-                    if (Tools.MyConfig.PPPwnConfig.UseWaitAfterPIN)
+                    if (Tools.MyConfig.PPPwnOptions.UseWaitAfterPIN)
                     {
-                        args += $" --wait-after-pin {Tools.MyConfig.PPPwnConfig.WaitAfterPIN}";
+                        args += $" --wait-after-pin {Tools.MyConfig.PPPwnOptions.WaitAfterPIN}";
                     }
-                    if (Tools.MyConfig.PPPwnConfig.UseGroomDelay)
+                    if (Tools.MyConfig.PPPwnOptions.UseGroomDelay)
                     {
-                        args += $" --groom-delay {Tools.MyConfig.PPPwnConfig.GroomDelay}";
+                        args += $" --groom-delay {Tools.MyConfig.PPPwnOptions.GroomDelay}";
                     }
-                    if (Tools.MyConfig.PPPwnConfig.UseAutoRetry)
+                    if (Tools.MyConfig.PPPwnOptions.UseAutoRetry)
                     {
                         args += $" --auto-retry";
                     }
-                    if (Tools.MyConfig.PPPwnConfig.UseNoWaitPADI)
+                    if (Tools.MyConfig.PPPwnOptions.UseNoWaitPADI)
                     {
                         args += " --no-wait-padi";
                     }
-                    if (Tools.MyConfig.PPPwnConfig.UseRealSleep)
+                    if (Tools.MyConfig.PPPwnOptions.UseRealSleep)
                     {
                         args += " --real-sleep";
                     }

@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace EzPPPwn.Controls
+namespace DpLib.Winform.Controls
 {
     public enum ProgressBarDisplayMode
     {
@@ -9,9 +9,9 @@ namespace EzPPPwn.Controls
         TextAndCurrProgress
     }
 
-    public class DP_TextProgressBar : ProgressBar
+    public class DpTextProgressBar : ProgressBar
     {
-        public DP_TextProgressBar()
+        public DpTextProgressBar()
         {
             Value = Minimum;
             FixComponentBlinking();

@@ -1,4 +1,6 @@
-# EzPPPwn v1.10 with PPPwn C++ 
+# EzPPPwn v1.20
+
+![FormPPPwn](https://github.com/DjPopol/EzPPPwn/assets/168917709/1ce2abe1-c760-4412-97a5-22946b121e63)
 
 # Supported versions are:
 - FW 7.00 / 7.01 / 7.02
@@ -20,18 +22,21 @@
     - Npcap.
 
 # FormConfig (Config PPPwn) :
-![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d1cd35af-b19d-40cd-804a-7fef2ddb57ff)
-- Remove Browse stage1.bin (Embedded resource now).
-- Add options of PPPwn C++.
-- Add Set Default (Use Default values for PPPwn options.
-- Restyle Form.
+![FormConfig](https://github.com/DjPopol/EzPPPwn/assets/168917709/5552d2d6-4ac0-4ce3-bd58-ee4d4d381c06)
+
+![FormConfig2](https://github.com/DjPopol/EzPPPwn/assets/168917709/03024c3c-2b2c-44ef-a0bb-6d983ea44369)
 
 # FormPPPwn (Exploit):
-![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/25fec83d-5980-48b4-a8ce-25d0400d4327)
-- Add Show/Hide Console.
-- Add Update PPPwn C++.
-- Add Cancel button.
+![FormPPPwn](https://github.com/DjPopol/EzPPPwn/assets/168917709/1ce2abe1-c760-4412-97a5-22946b121e63)
+- Add Update Button.
 - Restyle Form.
+
+# FormUpdate
+![EzPPPwnUpdate](https://github.com/DjPopol/EzPPPwn/assets/168917709/518d1f4a-fba4-401b-b269-52619afe6c52)
+
+![EzPPPwnUpdate2](https://github.com/DjPopol/EzPPPwn/assets/168917709/5dddc24d-a226-482d-a784-fd44ab05ae1d)
+
+![EzPPPwnUpdate3](https://github.com/DjPopol/EzPPPwn/assets/168917709/37a11593-4ff8-43f3-9caa-6f14623ec999)
 
 # If you don't have requirements it could help you to install it (Npcap, PPPwn C++, stage1.bin (Embedded resource)):
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/d9963422-012b-47cd-8765-2663bd0c5568)
@@ -40,8 +45,7 @@
 
 # FormRequired (Install requirements) :
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/871661dd-8b52-429d-ac46-70ac623f3d0d)
-- Add Cancel button
-- If you canceld installation, Application will close.
+- If you canceled installation, Application will close.
 
 
 # Usage
@@ -60,4 +64,6 @@ If the exploit works, you should see an output similar to below, and you should 
 
 ### Example run
 ![image](https://github.com/DjPopol/EzPPPwn/assets/168917709/4de7c32e-f491-4f65-a5cb-be26c0a8dc33)
+
+
 
