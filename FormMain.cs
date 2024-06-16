@@ -337,7 +337,6 @@ namespace EzPPPwn
         }
         void ShowConsole()
         {
-            //Height = Tools.MyConfig.ShowConsole ? 355 : 170;
             showConsoleToolStripMenuItem.Text = Tools.MyConfig.ShowConsole ? "Hide Console" : "Show Console";
             if (textBoxLog.Visible)
             {
