@@ -150,9 +150,16 @@ namespace EzPPPwn
             Refresh();
             UpdateManager updateManager = new("https://api.github.com/repos/DjPopol/EzPPPwn/releases", Tools.GetToken());
             Version currentVersion = Tools.GetVersion();
-            latestInfos = await updateManager.GetLastReleaseInfosAsync();
-            bool IsUptoDate = latestInfos.Version == new Version() || latestInfos.Version <= currentVersion;
-            updateCppToolStripMenuItem.Visible = !IsUptoDate;
+            if(await Tools.IsConnectedToInternetAsync())
+            {
+                latestInfos = await updateManager.GetLastReleaseInfosAsync();
+            }
+            else
+            {
+                latestInfos = new();
+            }
+            bool IsUptoDate = !await Tools.IsConnectedToInternetAsync() || latestInfos.Version == new Version() || latestInfos.Version <= currentVersion;
+            updateToolStripMenuItem.Visible = !IsUptoDate;
             if (Tools.MyConfig.CheckUpdateOnStartUp && !IsUptoDate)
             {
                 ShowUpdate();
@@ -330,7 +337,6 @@ namespace EzPPPwn
         }
         void ShowConsole()
         {
-            //Height = Tools.MyConfig.ShowConsole ? 355 : 170;
             showConsoleToolStripMenuItem.Text = Tools.MyConfig.ShowConsole ? "Hide Console" : "Show Console";
             if (textBoxLog.Visible)
             {
@@ -347,39 +353,54 @@ namespace EzPPPwn
         }
         async void ShowUpdate()
         {
-            DpMessageBox messageBox = new($"{latestInfos.Name} is avaible.\nWould you like to update ?", "New Update avaible", MessageBoxButtons.YesNo, MessageBoxIcon.Question, true, Tools.MyConfig.CheckUpdateOnStartUp)
+            if (await Tools.IsConnectedToInternetAsync())
             {
-                CheckBoxText = "Show at startup"
-            };
-            DialogResult = messageBox.ShowDialog();
-            Tools.MyConfig.CheckUpdateOnStartUp = messageBox.CheckBoxChecked;
-            Tools.MyConfig.Save();
-            if (DialogResult == DialogResult.Yes)
-            {
-                // Update
-                DpFormUpdate formUpdate = new(latestInfos, Tools.MyConfig.ShowConsole);
-                formUpdate.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
+                DpMessageBox messageBox = new($"{latestInfos.Name} is avaible.\nWould you like to update ?", "New Update avaible", MessageBoxButtons.YesNo, MessageBoxIcon.Question, true, Tools.MyConfig.CheckUpdateOnStartUp)
                 {
-                    Enabled = true;
-                    Close();
-                });
-                Enabled = false;
-                await Task.Delay(100);
-                formUpdate.Show();
-                Hide();
+                    CheckBoxText = "Show at startup"
+                };
+                DialogResult = messageBox.ShowDialog();
+                Tools.MyConfig.CheckUpdateOnStartUp = messageBox.CheckBoxChecked;
+                Tools.MyConfig.Save();
+                if (DialogResult == DialogResult.Yes)
+                {
+                    // Update
+                    DpFormUpdate formUpdate = new(latestInfos, Tools.MyConfig.ShowConsole);
+                    formUpdate.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
+                    {
+                        Enabled = true;
+                        Close();
+                    });
+                    Enabled = false;
+                    await Task.Delay(100);
+                    formUpdate.Show();
+                    Hide();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Internet connexion  required !\nYou must connect to internet and restart application", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        void UpdateCpp()
+        async void UpdateCpp()
         {
-            FormInstallRequired formInstallRequired = new([REQUIRED_JOBS.INSTALL_PPPWN_CPP]);
-            formInstallRequired.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
+            if (await Tools.IsConnectedToInternetAsync())
             {
-                Enabled = true;
-                Show();
-            });
-            Hide();
-            Enabled = false;
-            formInstallRequired.Show();
+                FormInstallRequired formInstallRequired = new([REQUIRED_JOBS.INSTALL_PPPWN_CPP]);
+                formInstallRequired.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
+                {
+                    Enabled = true;
+                    Show();
+                });
+                Hide();
+                Enabled = false;
+                formInstallRequired.Show();
+            }
+            else
+            {
+                MessageBox.Show("Internet connexion  required !\nYou must connect to internet and restart application", "Update PPPwn C++", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
         #endregion
     }
