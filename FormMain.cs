@@ -159,7 +159,7 @@ namespace EzPPPwn
                 latestInfos = new();
             }
             bool IsUptoDate = !await Tools.IsConnectedToInternetAsync() || latestInfos.Version == new Version() || latestInfos.Version <= currentVersion;
-            updateCppToolStripMenuItem.Visible = !IsUptoDate;
+            updateToolStripMenuItem.Visible = !IsUptoDate;
             if (Tools.MyConfig.CheckUpdateOnStartUp && !IsUptoDate)
             {
                 ShowUpdate();
