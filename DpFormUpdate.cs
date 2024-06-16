@@ -279,6 +279,10 @@ namespace DpLib.Winform
         {
             Invoke(new Action(() =>
             {
+                if (progress.ConsoleMessage != string.Empty)
+                {
+                    textBoxConsole.AppendText(progress.ConsoleMessage + Environment.NewLine);
+                }
                 if (progress.CurrentStatus != string.Empty)
                 {
                     labelCurrentStatus.Text = progress.CurrentStatus;
