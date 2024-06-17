@@ -163,8 +163,10 @@ namespace DpLib.Winform.Controls
         }
         public static DpMessageBoxResult ShowDialog(string message, string caption, string checkBoxText, bool isChecked, MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.None)
         {
-            DpMessageBox messageBox = new(message, caption, buttons, icon, true, isChecked);
-            messageBox.CheckBoxText = checkBoxText;
+            DpMessageBox messageBox = new(message, caption, buttons, icon, true, isChecked)
+            {
+                CheckBoxText = checkBoxText
+            };
             DialogResult result = messageBox.ShowDialog();
             return new() { DialogResult = result, IsChecked = messageBox.CheckBoxChecked };
         }

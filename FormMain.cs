@@ -352,7 +352,7 @@ namespace EzPPPwn
                 DpMessageBoxResult result = DpMessageBox.ShowDialog($"{latestInfos.Name} is avaible.\nWould you like to update ?", "New Update avaible", "Show at startup", Tools.MyConfig.CheckUpdateOnStartUp, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 Tools.MyConfig.CheckUpdateOnStartUp = result.IsChecked;
                 Tools.MyConfig.Save();
-                if (DialogResult == DialogResult.Yes)
+                if (result.DialogResult == DialogResult.Yes)
                 {
                     // Update
                     DpFormUpdate formUpdate = new(latestInfos, Tools.MyConfig.ShowConsole);
