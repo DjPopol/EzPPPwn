@@ -1,4 +1,6 @@
-﻿namespace DpLib.Winform.Controls
+﻿using Dplib.Winform.Models;
+
+namespace DpLib.Winform.Controls
 {
     public partial class DpMessageBox : Form
     {
@@ -96,6 +98,7 @@
             {
                 case MessageBoxButtons.OK:
                     btnYes.Visible = true;
+                    btnYes.Text = "Ok";
                     btnNo.Visible = false;
                     btnCancel.Visible = false;
                     space = (spaceTotal - btnYes.Width) / 2;
@@ -103,15 +106,17 @@
                     break;
                 case MessageBoxButtons.OKCancel:
                     btnYes.Visible = true;
+                    btnYes.Text = "Yes";
                     btnNo.Visible = false;
                     btnCancel.Visible = true;
                     space = (spaceTotal - (btnYes.Width + btnCancel.Width + 5)) / 2;
                     btnYes.Location = new Point(space, buttonY);
                     btnCancel.Location = new Point(btnYes.Location.X + btnYes.Width + 5, buttonY);
-                    
+
                     break;
                 case MessageBoxButtons.YesNo:
                     btnYes.Visible = true;
+                    btnYes.Text = "Yes";
                     btnNo.Visible = true;
                     btnCancel.Visible = false;
                     space = (spaceTotal - (btnYes.Width + btnCancel.Width + 5)) / 2;
@@ -120,6 +125,7 @@
                     break;
                 case MessageBoxButtons.YesNoCancel:
                     btnYes.Visible = true;
+                    btnYes.Text = "Yes";
                     btnNo.Visible = true;
                     btnCancel.Visible = true;
                     space = (spaceTotal - (btnYes.Width + btnCancel.Width)) / 2;
@@ -148,6 +154,19 @@
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+        public static DialogResult ShowDialog(string message, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.None)
+        {
+            DpMessageBox messageBox = new(message, caption, buttons, icon);
+            DialogResult result = messageBox.ShowDialog();
+            return result;
+        }
+        public static DpMessageBoxResult ShowDialog(string message, string caption, string checkBoxText, bool isChecked, MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.None)
+        {
+            DpMessageBox messageBox = new(message, caption, buttons, icon, true, isChecked);
+            messageBox.CheckBoxText = checkBoxText;
+            DialogResult result = messageBox.ShowDialog();
+            return new() { DialogResult = result, IsChecked = messageBox.CheckBoxChecked };
         }
     }
 }

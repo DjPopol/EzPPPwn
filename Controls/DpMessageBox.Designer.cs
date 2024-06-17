@@ -131,6 +131,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DpMessageBox";
+            StartPosition = FormStartPosition.CenterParent;
             Shown += DpMessageBox_Shown;
             ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
             panel1.ResumeLayout(false);
