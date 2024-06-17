@@ -61,6 +61,7 @@
 
   <ItemGroup>
     <None Remove="Resources\stages1.zip" />
+    <None Remove="Resources\stages2.zip" />
     <None Remove="Resources\token.dp" />
   </ItemGroup>
 
@@ -70,6 +71,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\stages1.zip" />
+    <EmbeddedResource Include="Resources\stages2.zip" />
     <EmbeddedResource Include="Resources\token.dp" />
   </ItemGroup>
 
