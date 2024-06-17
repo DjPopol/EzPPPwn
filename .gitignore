@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 Resources/token.dp
 Resources/stages1.zip
+Resources/stages2.zip
 # User-specific files
 *.rsuser
 *.suo
