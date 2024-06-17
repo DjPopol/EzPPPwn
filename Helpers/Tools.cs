@@ -89,8 +89,9 @@ namespace EzPPPwn.Helpers
         }
         public static string GetVersionStr()
         {
-            Version? version = GetVersion();
-            return version != null ? version.Major + "." + version.Minor + version.Revision : string.Empty;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Version? version = assembly.GetName().Version;
+            return version != null ? version.Major + "." + version.Minor + version.Build : string.Empty;
         }
         public static async Task<bool> IsConnectedToInternetAsync()
         {

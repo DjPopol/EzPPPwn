@@ -2,6 +2,7 @@
 using DpLib.Extensions;
 using DpLib.Helpers;
 using DpLib.Models;
+using DpLib.Winform.Controls;
 using System.Diagnostics;
 
 namespace DpLib.Winform
@@ -303,7 +304,7 @@ namespace DpLib.Winform
                 }
                 if (progress.ErrorMessage != string.Empty)
                 {
-                    MessageBox.Show(progress.ErrorMessage, "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DpMessageBox.ShowDialog(progress.ErrorMessage, "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 progressBarMain.CustomText = $"Updating...";
                 if (progress.MainProgressMax != null)
@@ -320,15 +321,15 @@ namespace DpLib.Winform
                     buttonCancel.Visible = false;
                     if (progress.Status == UPDATE_PROGESS_STATUS.CANCELED)
                     {
-                        MessageBox.Show("Update canceled.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DpMessageBox.ShowDialog("Update canceled.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (progress.Status == UPDATE_PROGESS_STATUS.FAILED)
                     {
-                        MessageBox.Show("Update failed.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        DpMessageBox.ShowDialog("Update failed.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (progress.Status == UPDATE_PROGESS_STATUS.COMPLETED)
                     {
-                        DialogResult = MessageBox.Show("Update successfull.\nThe application will restart to complete the update.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DpMessageBox.ShowDialog("Update successfull.\nThe application will restart to complete the update.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         EndUpdate();
                     }
                     Close();

@@ -2,6 +2,7 @@
 using DpLib.Extensions;
 using DpLib.Helpers;
 using DpLib.Models;
+using DpLib.Winform.Controls;
 using EzPPPwn.Enums;
 using EzPPPwn.Models;
 using System.Diagnostics;
@@ -207,15 +208,15 @@ namespace EzPPPwn.Helpers
                                         case 0:
                                             break;
                                         case -1:
-                                            MessageBox.Show("The install was cancelled.");
+                                            DpMessageBox.ShowDialog("The install was cancelled.", "Error");
                                             result = false;
                                             break;
                                         case -2:
-                                            MessageBox.Show("The install failed due to an error.");
+                                            DpMessageBox.ShowDialog("The install failed due to an error.", "Error");
                                             result = false;
                                             break;
                                         case -3:
-                                            MessageBox.Show("The install failed due to an error.");
+                                            DpMessageBox.ShowDialog("The install failed due to an error.", "Error");
                                             result = false;
                                             break;
                                     }

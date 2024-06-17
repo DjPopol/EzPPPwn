@@ -1,4 +1,5 @@
-﻿using EzPPPwn.Enums;
+﻿using DpLib.Winform.Controls;
+using EzPPPwn.Enums;
 using EzPPPwn.Helpers;
 using EzPPPwn.Models;
 
@@ -73,7 +74,7 @@ namespace EzPPPwn
                 }
                 if (progress.ErrorMessage != string.Empty)
                 {
-                    MessageBox.Show(progress.ErrorMessage, "Install required", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DpMessageBox.ShowDialog(progress.ErrorMessage, "Install required", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 progressBarMain.CustomText = $"Install requirement{(progress.MainProgress > 1 ? "s" : "")}";
                 if (progress.MainProgressMax != null)
@@ -90,15 +91,15 @@ namespace EzPPPwn
                     ShowConsole();
                     if (progress.Status == REQUIRED_PROGESS_STATUS.CANCELED)
                     {
-                        MessageBox.Show("Install canceled.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DpMessageBox.ShowDialog("Install canceled.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (progress.Status == REQUIRED_PROGESS_STATUS.FAILED)
                     {
-                        MessageBox.Show("Install failed.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        DpMessageBox.ShowDialog("Install failed.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (progress.Status == REQUIRED_PROGESS_STATUS.COMPLETED)
                     {
-                        MessageBox.Show("Install successfull.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DpMessageBox.ShowDialog("Install successfull.", "Install required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     Close();
                 }
