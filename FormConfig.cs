@@ -1,3 +1,4 @@
+using DpLib.Winform.Controls;
 using EzPPPwn.Helpers;
 using EzPPPwn.Models;
 using System.Diagnostics;
@@ -27,7 +28,7 @@ namespace EzPPPwn
         {
             if (!Tools.MyConfig.CheckConfig())
             {
-                DialogResult dialogResult = MessageBox.Show("Config not completed\nExit EzPPPwn ?", "Config", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                DialogResult dialogResult = DpMessageBox.ShowDialog("Config not completed\nExit EzPPPwn ?", "Config", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Close();
@@ -68,7 +69,7 @@ namespace EzPPPwn
         {
             if (comboBoxEthernet.Text == "Select Ethernet Controller" | string.IsNullOrEmpty(comboBoxEthernet.Text))
             {
-                MessageBox.Show("Select Ethernet Controller", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DpMessageBox.ShowDialog("Select Ethernet Controller", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             RefreshForm();
         }
@@ -188,7 +189,7 @@ namespace EzPPPwn
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
             if (nics == null || nics.Length < 1)
             {
-                MessageBox.Show("No network interfaces found.", "Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DpMessageBox.ShowDialog("No network interfaces found.", "Network", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -230,7 +231,7 @@ namespace EzPPPwn
 
             if (!result && showMsg)
             {
-                MessageBox.Show($"Error Save config.json", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DpMessageBox.ShowDialog($"Error Save config.json", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             Close();
         }

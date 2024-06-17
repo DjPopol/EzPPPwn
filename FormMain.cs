@@ -1,4 +1,5 @@
-﻿using DpLib.Extensions;
+﻿using Dplib.Winform.Models;
+using DpLib.Extensions;
 using DpLib.Helpers;
 using DpLib.Models;
 using DpLib.Winform;
@@ -174,7 +175,7 @@ namespace EzPPPwn
             {
                 if ((requiredJobs.Contains(REQUIRED_JOBS.INSTALL_NPCAP) || requiredJobs.Contains(REQUIRED_JOBS.INSTALL_PPPWN_CPP)) && !await Tools.IsConnectedToInternetAsync())
                 {
-                    MessageBox.Show("Internet connexion  required !\nYou must connect to internet and restart application", "Install requirements", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DpMessageBox.ShowDialog("Internet connexion  required !\nYou must connect to internet and restart application", "Install requirements", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Close();
                 }
                 else
@@ -189,7 +190,7 @@ namespace EzPPPwn
                         }
                     }
                     message += $"\nWould you like to install {(requiredJobs.Length > 1 ? "them" : "this")}? ";
-                    DialogResult result = MessageBox.Show(message, "Install requirements", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = DpMessageBox.ShowDialog(message, "Install requirements", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         // Install Requirements
@@ -268,18 +269,18 @@ namespace EzPPPwn
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error opening page: " + ex.Message);
+                DpMessageBox.ShowDialog("Error opening page: " + ex.Message, "Error");
             }
         }
         void RunExploit()
         {
             if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "C++", "pppwn.exe")))
             {
-                MessageBox.Show($"pppwn.exe not found in {Path.Combine(Environment.CurrentDirectory, "C++", "pppwn.exe")}", "pppwn.exe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DpMessageBox.ShowDialog($"pppwn.exe not found in {Path.Combine(Environment.CurrentDirectory, "C++", "pppwn.exe")}", "pppwn.exe", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (!Tools.MyConfig.CheckConfig())
             {
-                MessageBox.Show($"Config not completed\nPlease complete", "Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DpMessageBox.ShowDialog($"Config not completed\nPlease complete", "Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -348,12 +349,8 @@ namespace EzPPPwn
         {
             if (await Tools.IsConnectedToInternetAsync())
             {
-                DpMessageBox messageBox = new($"{latestInfos.Name} is avaible.\nWould you like to update ?", "New Update avaible", MessageBoxButtons.YesNo, MessageBoxIcon.Question, true, Tools.MyConfig.CheckUpdateOnStartUp)
-                {
-                    CheckBoxText = "Show at startup"
-                };
-                DialogResult = messageBox.ShowDialog();
-                Tools.MyConfig.CheckUpdateOnStartUp = messageBox.CheckBoxChecked;
+                DpMessageBoxResult result = DpMessageBox.ShowDialog($"{latestInfos.Name} is avaible.\nWould you like to update ?", "New Update avaible", "Show at startup", Tools.MyConfig.CheckUpdateOnStartUp, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                Tools.MyConfig.CheckUpdateOnStartUp = result.IsChecked;
                 Tools.MyConfig.Save();
                 if (DialogResult == DialogResult.Yes)
                 {
@@ -372,7 +369,7 @@ namespace EzPPPwn
             }
             else
             {
-                MessageBox.Show("Internet connexion  required !\nYou must connect to internet and restart application", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DpMessageBox.ShowDialog("Internet connexion  required !\nYou must connect to internet and restart application", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         async void UpdateCpp()
@@ -391,7 +388,7 @@ namespace EzPPPwn
             }
             else
             {
-                MessageBox.Show("Internet connexion  required !\nYou must connect to internet and restart application", "Update PPPwn C++", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DpMessageBox.ShowDialog("Internet connexion  required !\nYou must connect to internet and restart application", "Update PPPwn C++", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }
