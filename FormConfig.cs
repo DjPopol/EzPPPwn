@@ -196,9 +196,12 @@ namespace EzPPPwn
                 comboBoxEthernet.Items.Clear();
                 foreach (NetworkInterface adapter in nics)
                 {
-                    if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                    if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                        !adapter.Description.Contains("virtual", StringComparison.CurrentCultureIgnoreCase) &&
+                        !adapter.Description.Contains("vpn", StringComparison.CurrentCultureIgnoreCase) &&
+                        !adapter.Description.Contains("hyper-v", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        Debug.WriteLine($"{adapter.Description} :\nID={adapter.Id}\nName={adapter.Name}\nPhysical Adress={adapter.GetPhysicalAddress().ToString()}\n\n");
+                        Debug.WriteLine($"{adapter.Description} :\nID={adapter.Id}\nName={adapter.Name}\nPhysical Adress={adapter.GetPhysicalAddress()}\n\n");
                         comboBoxEthernet.Items.Add(adapter);
                     }
                 }
