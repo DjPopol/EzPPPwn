@@ -42,7 +42,7 @@ namespace EzPPPwn.Helpers
                         if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X86)
                         {
                             if (await Files.DownloadFileAsync(
-                                "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86-windows-gnu%28win7%29.zip",
+                                "https://github.com/DjPopol/PPPwn_cpp/releases/download/PPPwnCpp%23v1.0.1/x86-windows-gnu.win7.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
                                 return "x86-windows-gnu(win7).zip";
@@ -52,7 +52,7 @@ namespace EzPPPwn.Helpers
                             osInfos.Architecture == System.Runtime.InteropServices.Architecture.Arm64)
                         {
                             if (await Files.DownloadFileAsync(
-                                "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86_64-windows-gnu%28win7%29.zip",
+                                "https://github.com/DjPopol/PPPwn_cpp/releases/download/PPPwnCpp%23v1.0.1/x86_64-windows-gnu.win7.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
                                 return "x86_64-windows-gnu(win7).zip";
@@ -69,7 +69,7 @@ namespace EzPPPwn.Helpers
                         if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X86)
                         {
                             if (await Files.DownloadFileAsync(
-                                "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86-windows-gnu.zip",
+                                "https://github.com/DjPopol/PPPwn_cpp/releases/download/PPPwnCpp%23v1.0.1/x86-windows-gnu.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
                                 return "x86-windows-gnu.zip";
@@ -78,7 +78,7 @@ namespace EzPPPwn.Helpers
                         else if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.X64)
                         {
                             if (await Files.DownloadFileAsync(
-                                "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/x86_64-windows-gnu.zip",
+                                "https://github.com/DjPopol/PPPwn_cpp/releases/download/PPPwnCpp%23v1.0.1/x86_64-windows-gnu.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
                                 return "x86_64-windows-gnu.zip";
@@ -87,7 +87,7 @@ namespace EzPPPwn.Helpers
                         else if (osInfos.Architecture == System.Runtime.InteropServices.Architecture.Arm64)
                         {
                             if (await Files.DownloadFileAsync(
-                                "https://nightly.link/xfangfang/PPPwn_cpp/workflows/ci.yaml/main/aarch64-windows-gnu.zip",
+                                "https://github.com/DjPopol/PPPwn_cpp/releases/download/PPPwnCpp%23v1.0.1/aarch64-windows-gnu.zip",
                                 destPath, progress, cancellationToken ?? CancellationToken.None))
                             {
                                 return "aarch64-windows-gnu.zip";
