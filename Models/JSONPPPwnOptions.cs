@@ -11,5 +11,8 @@
         public required int TimeOut { get; set; }
         public required bool UseWaitAfterPIN { get; set; }
         public required int WaitAfterPIN { get; set; }
+        public required bool UseOldIpv6 { get; set; }
+        public required bool UseBufferSize { get; set; }
+        public required int BufferSize { get; set; }
     }
 }

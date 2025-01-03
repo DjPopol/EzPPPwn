@@ -2,7 +2,7 @@
 
 namespace EzPPPwn.Helpers
 {
-    public class PPPwnOptions(bool useAutoRetry, bool useGroomDelay, int groomDelay, bool useNoWaitPADI, bool useRealSleep, bool useTimeOut, int timeOut, bool useWaitAfterPIN, int waitAfterPIN)
+    public class PPPwnOptions(bool useAutoRetry, bool useGroomDelay, int groomDelay, bool useNoWaitPADI, bool useRealSleep, bool useTimeOut, int timeOut, bool useWaitAfterPIN, int waitAfterPIN, bool useOldIpv6, bool useBufferSize, int bufferSize)
     {
         #region PROPERTIES
         public bool UseAutoRetry = useAutoRetry;
@@ -14,6 +14,9 @@ namespace EzPPPwn.Helpers
         public int TimeOut = timeOut;
         public bool UseWaitAfterPIN = useWaitAfterPIN;
         public int WaitAfterPIN = waitAfterPIN;
+        public bool UseOldIpv6 = useOldIpv6;
+        public bool UseBufferSize = useBufferSize;
+        public int BufferSize = bufferSize;
         #endregion
         #region FUNCTION
         public JSONPPPwnOptions GetJSON()
@@ -28,7 +31,10 @@ namespace EzPPPwn.Helpers
                 UseTimeOut = UseTimeOut,
                 TimeOut = TimeOut,
                 UseWaitAfterPIN = UseWaitAfterPIN,
-                WaitAfterPIN = WaitAfterPIN
+                WaitAfterPIN = WaitAfterPIN,
+                UseOldIpv6 = UseOldIpv6 ,
+                UseBufferSize = UseBufferSize,
+                BufferSize = BufferSize
             };
         }
         public static PPPwnOptions GetFromJSON(JSONPPPwnOptions jsonPPPwnConfig)
@@ -42,7 +48,11 @@ namespace EzPPPwn.Helpers
                 jsonPPPwnConfig.UseTimeOut,
                 jsonPPPwnConfig.TimeOut,
                 jsonPPPwnConfig.UseWaitAfterPIN,
-                jsonPPPwnConfig.WaitAfterPIN);
+                jsonPPPwnConfig.WaitAfterPIN,
+                jsonPPPwnConfig.UseOldIpv6,
+                jsonPPPwnConfig.UseBufferSize,
+                jsonPPPwnConfig.BufferSize
+                );
         }
         #endregion
     }

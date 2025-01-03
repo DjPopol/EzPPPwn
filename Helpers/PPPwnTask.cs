@@ -129,6 +129,16 @@ namespace EzPPPwn.Helpers
                     {
                         args += " --real-sleep";
                     }
+                    if (Tools.MyConfig.PPPwnOptions.UseOldIpv6)
+                    {
+                        args += " --old-ipv6";
+                    }
+
+                    if (Tools.MyConfig.PPPwnOptions.UseBufferSize)
+                    {
+                        args += " --buffer-size " + Tools.MyConfig.PPPwnOptions.BufferSize;
+                    }
+
                     process = new()
                     {
                         StartInfo = new ProcessStartInfo()

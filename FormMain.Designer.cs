@@ -219,7 +219,7 @@ namespace EzPPPwn
             labelDjPopol.Name = "labelDjPopol";
             labelDjPopol.Size = new Size(148, 25);
             labelDjPopol.TabIndex = 11;
-            labelDjPopol.Text = "©2024 DjPopol";
+            labelDjPopol.Text = "©2025 DjPopol";
             // 
             // labelFirmware
             // 

@@ -14,7 +14,7 @@ namespace EzPPPwn.Helpers
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
         public NetworkInterface? NetworkInterface = null;
-        public PPPwnOptions PPPwnOptions = new(true, true,4,false,false,false,0,true,1);
+        public PPPwnOptions PPPwnOptions = new(true, true,4,false,false,false,0,true,1,false,false,0);
         public static readonly string Path = System.IO.Path.Combine(Environment.CurrentDirectory, "EzPPPwn.json");
         public string Stage2Path = string.Empty;
         public bool ShowConsole = true;

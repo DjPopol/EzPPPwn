@@ -1,4 +1,5 @@
-﻿using Dplib.Winform.Models;
+﻿using System.Diagnostics;
+using Dplib.Winform.Models;
 using DpLib.Extensions;
 using DpLib.Helpers;
 using DpLib.Models;
@@ -7,7 +8,6 @@ using DpLib.Winform.Controls;
 using EzPPPwn.Enums;
 using EzPPPwn.Helpers;
 using EzPPPwn.Models;
-using System.Diagnostics;
 using Timer = System.Windows.Forms.Timer;
 
 namespace EzPPPwn
@@ -118,6 +118,7 @@ namespace EzPPPwn
             }
             labelTimer.Text = $"{minutes}:{seconds}";
         }
+
         void UpdateCppPPPwnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateCpp();
@@ -146,6 +147,7 @@ namespace EzPPPwn
                 Height = originalFormHeight - originalTextBoxHeight;
             }
         }
+        
         async Task Init()
         {
             Refresh();
@@ -219,12 +221,15 @@ namespace EzPPPwn
             }
             else
             {
+                Version currentPPPwnCppVersion = Tools.GetCurrentVersionPPPwnCpp();
+                ReleaseInfos lastPPPwnCppReleaseInfos = await Tools.GetLastReleaseInfosPPPwnCppAsync();
+                bool internet = await Tools.IsConnectedToInternetAsync();
+                updateCppToolStripMenuItem.Visible = (lastPPPwnCppReleaseInfos.Version > currentPPPwnCppVersion) & internet;
                 buttonStart.Visible = true;
                 ShowConsole();
                 buttonStart.Focus();
                 labelStatus.Text = "Ready ?";
                 labelFirmware.Text = Tools.MyConfig.Firmware.FwWithPoint;
-                updateCppToolStripMenuItem.Visible = await Tools.IsConnectedToInternetAsync();
                 Show();
             }
             return;
@@ -381,6 +386,7 @@ namespace EzPPPwn
                 {
                     Enabled = true;
                     Show();
+                    _ = Init();
                 });
                 Hide();
                 Enabled = false;
