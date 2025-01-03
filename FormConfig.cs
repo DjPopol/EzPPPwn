@@ -50,6 +50,9 @@ namespace EzPPPwn
             numericUpDownTimeOut.Value = 0;
             checkBoxWaitAfterPin.Checked = true;
             numericUpDownWaitAfterPin.Value = 1;
+            checkBoxOldIpv6.Checked = false;
+            checkBoxBufferSize.Checked = false;
+            numericUpDownBufferSize.Value = 0;
         }
         private void ButtonSave_Click(object sender, EventArgs e)
         {
@@ -146,6 +149,9 @@ namespace EzPPPwn
                 numericUpDownTimeOut.Value = Tools.MyConfig.PPPwnOptions.TimeOut;
                 checkBoxWaitAfterPin.Checked = Tools.MyConfig.PPPwnOptions.UseWaitAfterPIN;
                 numericUpDownWaitAfterPin.Value = Tools.MyConfig.PPPwnOptions.WaitAfterPIN;
+                checkBoxOldIpv6.Checked = Tools.MyConfig.PPPwnOptions.UseOldIpv6;
+                checkBoxBufferSize.Checked = Tools.MyConfig.PPPwnOptions.UseBufferSize;
+                numericUpDownBufferSize.Value = Tools.MyConfig.PPPwnOptions.BufferSize;
             }
             return result;
         }
@@ -225,7 +231,10 @@ namespace EzPPPwn
                                          checkBoxTimeOut.Checked,
                                          (int)numericUpDownTimeOut.Value,
                                          checkBoxWaitAfterPin.Checked,
-                                         (int)numericUpDownWaitAfterPin.Value);
+                                         (int)numericUpDownWaitAfterPin.Value,
+                                         checkBoxOldIpv6.Checked,
+                                         checkBoxBufferSize.Checked,
+                                         (int)numericUpDownBufferSize.Value);
 
             Tools.MyConfig.Set(comboBoxEthernet.SelectedItem != null ? (NetworkInterface)comboBoxEthernet.SelectedItem : null,
                 Tools.MyConfig.Firmware, textBoxStage2.Text,
@@ -242,7 +251,8 @@ namespace EzPPPwn
         {
             Process.Start(@"Rundll32.exe", " shell32.dll,Control_RunDLL ncpa.cpl");
         }
-    #endregion
+
+#endregion
     }
 }
 

@@ -1,4 +1,6 @@
-﻿using EzPPPwn.Enums;
+﻿using DpLib.Helpers;
+using DpLib.Models;
+using EzPPPwn.Enums;
 using EzPPPwn.Models;
 using System.Diagnostics;
 using System.Reflection;
@@ -17,6 +19,71 @@ namespace EzPPPwn.Helpers
             if (Directory.Exists(PathTmp))
             {
                 Directory.Delete(PathTmp, true);
+            }
+        }
+        public static Version GetCurrentVersionPPPwnCpp()
+        {
+            Version output = new();
+            if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "C++", "pppwn.exe")))
+                return output;
+            Process process = new()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    WindowStyle = ProcessWindowStyle.Normal,
+                    FileName = Path.Combine(Environment.CurrentDirectory, "C++", "pppwn.exe"),
+                    Arguments = "-v",
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                },
+                EnableRaisingEvents = true,
+            };
+            try
+            {
+                process.Start();
+                //* Read one element asynchronously
+                process.BeginErrorReadLine();
+                //* Read the other one synchronously
+                output = UpdateManager.ParseVersion(process.StandardOutput.ReadToEnd().Trim());
+                process.WaitForExit();
+                return output;
+            }
+            finally
+            {
+               
+            };
+        }
+
+        public static async Task<Version> GetLastVersionPPPwnCpp()
+        {
+            ReleaseInfos infos = await GetLastReleaseInfosPPPwnCppAsync();
+            return infos.Version;
+        }
+        public static async Task<ReleaseInfos> GetLastReleaseInfosPPPwnCppAsync()
+        {
+            try
+            {
+                UpdateManager updateManager = new("https://api.github.com/repos/DjPopol/PPPwn_cpp/releases", GetToken());
+                ReleaseInfos releaseInfo = new();
+                if (await IsConnectedToInternetAsync())
+                {
+                    releaseInfo = await updateManager.GetLastReleaseInfosAsync();
+                }
+                else
+                {
+                    releaseInfo = new();
+                }
+
+                releaseInfo.DownloadURL = releaseInfo.DownloadURL[..(releaseInfo.DownloadURL.LastIndexOf('/') + 1)];
+
+                return releaseInfo;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving PPPwnCpp last release: {ex.Message}");
+                return new();
             }
         }
         public static OsInfos GetOsInfos()

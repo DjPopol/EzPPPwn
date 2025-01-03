@@ -39,6 +39,9 @@ namespace EzPPPwn
             buttonContinue = new Button();
             buttonCancel = new Button();
             groupBoxPPPwnOptions = new GroupBox();
+            checkBoxBufferSize = new CheckBox();
+            numericUpDownBufferSize = new NumericUpDown();
+            checkBoxOldIpv6 = new CheckBox();
             buttonDefaultPPPwn = new Button();
             checkBoxGroomDelay = new CheckBox();
             checkBoxTimeOut = new CheckBox();
@@ -56,6 +59,7 @@ namespace EzPPPwn
             buttonBrowseStage2 = new Button();
             groupBoxNetworkInterface.SuspendLayout();
             groupBoxPPPwnOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownBufferSize).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownTimeOut).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownWaitAfterPin).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownGroomDelay).BeginInit();
@@ -125,7 +129,7 @@ namespace EzPPPwn
             buttonContinue.FlatStyle = FlatStyle.Flat;
             buttonContinue.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonContinue.ForeColor = Color.DodgerBlue;
-            buttonContinue.Location = new Point(385, 218);
+            buttonContinue.Location = new Point(385, 255);
             buttonContinue.Name = "buttonContinue";
             buttonContinue.Size = new Size(78, 22);
             buttonContinue.TabIndex = 20;
@@ -141,7 +145,7 @@ namespace EzPPPwn
             buttonCancel.FlatStyle = FlatStyle.Flat;
             buttonCancel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonCancel.ForeColor = Color.DodgerBlue;
-            buttonCancel.Location = new Point(301, 218);
+            buttonCancel.Location = new Point(301, 255);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(78, 22);
             buttonCancel.TabIndex = 24;
@@ -152,6 +156,9 @@ namespace EzPPPwn
             // 
             // groupBoxPPPwnOptions
             // 
+            groupBoxPPPwnOptions.Controls.Add(checkBoxBufferSize);
+            groupBoxPPPwnOptions.Controls.Add(numericUpDownBufferSize);
+            groupBoxPPPwnOptions.Controls.Add(checkBoxOldIpv6);
             groupBoxPPPwnOptions.Controls.Add(buttonDefaultPPPwn);
             groupBoxPPPwnOptions.Controls.Add(checkBoxGroomDelay);
             groupBoxPPPwnOptions.Controls.Add(checkBoxTimeOut);
@@ -166,10 +173,40 @@ namespace EzPPPwn
             groupBoxPPPwnOptions.ForeColor = Color.White;
             groupBoxPPPwnOptions.Location = new Point(12, 102);
             groupBoxPPPwnOptions.Name = "groupBoxPPPwnOptions";
-            groupBoxPPPwnOptions.Size = new Size(457, 110);
+            groupBoxPPPwnOptions.Size = new Size(457, 147);
             groupBoxPPPwnOptions.TabIndex = 27;
             groupBoxPPPwnOptions.TabStop = false;
             groupBoxPPPwnOptions.Text = "Options";
+            // 
+            // checkBoxBufferSize
+            // 
+            checkBoxBufferSize.AutoSize = true;
+            checkBoxBufferSize.Location = new Point(206, 113);
+            checkBoxBufferSize.Name = "checkBoxBufferSize";
+            checkBoxBufferSize.Size = new Size(81, 17);
+            checkBoxBufferSize.TabIndex = 43;
+            checkBoxBufferSize.Text = "Buffer Size";
+            checkBoxBufferSize.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownBufferSize
+            // 
+            numericUpDownBufferSize.ForeColor = Color.DodgerBlue;
+            numericUpDownBufferSize.Location = new Point(311, 112);
+            numericUpDownBufferSize.Maximum = new decimal(new int[] { 4096, 0, 0, 0 });
+            numericUpDownBufferSize.Name = "numericUpDownBufferSize";
+            numericUpDownBufferSize.Size = new Size(56, 22);
+            numericUpDownBufferSize.TabIndex = 42;
+            // 
+            // checkBoxOldIpv6
+            // 
+            checkBoxOldIpv6.AutoSize = true;
+            checkBoxOldIpv6.FlatAppearance.CheckedBackColor = Color.Transparent;
+            checkBoxOldIpv6.Location = new Point(107, 113);
+            checkBoxOldIpv6.Name = "checkBoxOldIpv6";
+            checkBoxOldIpv6.Size = new Size(69, 17);
+            checkBoxOldIpv6.TabIndex = 41;
+            checkBoxOldIpv6.Text = "Old Ipv6";
+            checkBoxOldIpv6.UseVisualStyleBackColor = true;
             // 
             // buttonDefaultPPPwn
             // 
@@ -183,6 +220,7 @@ namespace EzPPPwn
             buttonDefaultPPPwn.TabIndex = 33;
             buttonDefaultPPPwn.Text = "Set Default";
             buttonDefaultPPPwn.UseVisualStyleBackColor = false;
+            buttonDefaultPPPwn.Click += ButtonDefaultPPPwn_Click;
             // 
             // checkBoxGroomDelay
             // 
@@ -340,7 +378,7 @@ namespace EzPPPwn
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DodgerBlue;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(480, 247);
+            ClientSize = new Size(480, 288);
             Controls.Add(groupBoxPPPwnOptions);
             Controls.Add(groupBoxFirmware);
             Controls.Add(groupBoxStage2);
@@ -356,6 +394,7 @@ namespace EzPPPwn
             groupBoxNetworkInterface.ResumeLayout(false);
             groupBoxPPPwnOptions.ResumeLayout(false);
             groupBoxPPPwnOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownBufferSize).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownTimeOut).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownWaitAfterPin).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownGroomDelay).EndInit();
@@ -388,6 +427,9 @@ namespace EzPPPwn
         private GroupBox groupBoxStage2;
         private TextBox textBoxStage2;
         private Button buttonBrowseStage2;
+        private CheckBox checkBoxOldIpv6;
+        private CheckBox checkBoxBufferSize;
+        private NumericUpDown numericUpDownBufferSize;
     }
 }
 
